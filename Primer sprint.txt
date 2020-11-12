@@ -1,0 +1,25 @@
+* Diseñar pseudocódigo general de la generación del mapa
+
+creación de los niveles (new Nivel(infectados, grafico)) // dentro de los niveles se generan infectados random según los tipos que haya
+listaNiveles.add(nivel[0..n])
+
+El mapa se genera así básicamente, después para interactuar con él:
+
+cada nivel se juega usando pasarNivel() (clase Juego)
+el nivel contiene el gráfico del mapa que se ejecutará.
+para generar la primera o segunda tanda de infectados se encarga cada nivel al momento de ejecutarse por primera vez (primera tanda) o al terminar la primer tanda.
+(Nuestra idea es que, en un mismo hilo funcionan los infectados, los premios, los proyectiles y las particulas)
+
+
+* Movimiento del jugador e infectados
+
+Jugador:
+con las flechas < > y se decrementa o incrementa las posiciones y según el movimiento que haga.
+
+Infectados: 
+En un hilo, cada cierto tiempo según la velocidad que tenga se incrementa o decrementan x.
+También se comprueba que no pase la línea, si la pasa los vuelve a la posición original (Hay un arreglo de 2 componentes que contiene la posición original -> (x,y) )
+
+* Pensado como interactuan
+Interactuan con el visitor, cuando se capta el rayo que dispara el jugador esté en las mismas posiciones. Haciendo uso de los metodos colision()
+

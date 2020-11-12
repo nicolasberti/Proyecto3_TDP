@@ -1,25 +1,14 @@
-* Diseñar pseudocódigo general de la generación del mapa
+Diseño del juego - Primer sprint
 
-creación de los niveles (new Nivel(infectados, grafico)) // dentro de los niveles se generan infectados random según los tipos que haya
-listaNiveles.add(nivel[0..n])
+Mapa: Se inicializa al crear el juego y en él están contenidos los niveles. Conoce las posiciones del jugador y los infectados.
 
-El mapa se genera así básicamente, después para interactuar con él:
+Nivel: El mapa se encarga de cargar los niveles. Cada uno tendrá un fondo y una cantidad finita de infectados. Una vez que éstos sean derrotados se pasará de nivel. (El nivel también se encarga de ejecutar la primera tanda de infectados al principio, y cuando termina ésta, la segunda)
 
-cada nivel se juega usando pasarNivel() (clase Juego)
-el nivel contiene el gráfico del mapa que se ejecutará.
-para generar la primera o segunda tanda de infectados se encarga cada nivel al momento de ejecutarse por primera vez (primera tanda) o al terminar la primer tanda.
+Infectado: Parte desde una posición inicial en la línea superior del mapa. A medida que avanza desprende partículas con un rango limitado y dispara si ve al jugador en su misma línea. Si es derrotado desaparece, caso contrario al cruzar la línea inferior del mapa reaparecerá en su posición original. (La posición original se guardará en un arreglo de 2 dimensiones (x,y))
+
+Jugador: Se mueve horizontalmente en la línea inferior del mapa (Flechas < >). Su objetivo es deshacerse de todos los infectados para avanzar niveles hasta ganar el juego. Posee un arma para defenderse que puede disparar cuando lo desee, sin embargo los disparos se efectuaran en línea horizontal hacia el frente. También tiene una barra de salud que se decrementa con disparos o partículas enemigas. Si la barra de salud llega a 0 se perderá el juego.
+Interactuan con los infectados con el visitor, cuando se capta el rayo que dispara el jugador esté en las mismas posiciones. Haciendo uso de los metodos accept(), colision(), etc.
+
 (Nuestra idea es que, en un mismo hilo funcionan los infectados, los premios, los proyectiles y las particulas)
 
-
-* Movimiento del jugador e infectados
-
-Jugador:
-con las flechas < > y se decrementa o incrementa las posiciones y según el movimiento que haga.
-
-Infectados: 
-En un hilo, cada cierto tiempo según la velocidad que tenga se incrementa o decrementan x.
-También se comprueba que no pase la línea, si la pasa los vuelve a la posición original (Hay un arreglo de 2 componentes que contiene la posición original -> (x,y) )
-
-* Pensado como interactuan
-Interactuan con el visitor, cuando se capta el rayo que dispara el jugador esté en las mismas posiciones. Haciendo uso de los metodos colision()
-
+Los infectados cada cierto tiempo incrementan o decrementan su posición X (ya que solo se mueven verticalmente) según la velocidad que tengan.

@@ -1,4 +1,4 @@
-Diseño del juego - Primer sprint (idea general)
+Diseño del juego - Primer sprint
 
 Mapa: Se inicializa al crear el juego y en él están contenidos los niveles. Conoce las posiciones del jugador y los infectados.
 

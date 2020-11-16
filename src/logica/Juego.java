@@ -6,11 +6,11 @@ public class Juego {
 	private Mapa miMapa; // La clase encargada de dar las ImageIcon es la clase "EntidadGrafica" con el metodo getGrafico();
 	
 	/**
-	 * Creación del juego.
+	 * CreaciÃ³n del juego.
 	 * @param niveles Cantidad de niveles.
 	 */
 	public Juego(int niveles) {
-		// tamaño del mapa
+		// tamaÃ±o del mapa
 		int x = 200;
 		int y = 200;
 		miMapa = new Mapa(x,y,niveles);
@@ -18,7 +18,7 @@ public class Juego {
 	}
 	
 	public void empezar() {
-		nivelActual = 1; // Los niveles actuales en el backend es nivelActual-1 y en el frontend simplemente es nivelActual
+		nivelActual = 1; // El nivel actual en el backend es nivelActual-1 y en el frontend simplemente es nivelActual
 	}
 	
 	public void pasarNivel() {

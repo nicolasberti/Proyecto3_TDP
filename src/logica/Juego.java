@@ -18,7 +18,7 @@ public class Juego {
 	}
 	
 	public void empezar() {
-		nivelActual = 1; // El nivel actual en el backend es nivelActual-1 y en el frontend simplemente es nivelActual
+		nivelActual = 1; // El nivel actual en el backend es nivelActual-1 y en el frontend simplemente es nivelActual.
 	}
 	
 	public void pasarNivel() {

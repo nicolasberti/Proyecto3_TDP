@@ -1,2 +1,3 @@
 El personaje principal es uno de los pocos sobrevivientes a una catástrofe desatada por un nuevo virus con una capacidad de propagación y una tasa de mortalidad muy alta. Así mismo, este nuevo virus tiene efectos un poco extraños, y se sabe que los infectados no pueden darse cuenta ni ser conscientes que lo están, por lo que tomará acciones contra ellos no es tan simple. El objetivo principal del juego es sobrevivir, evitando ser contagiado, pero además tratar de recuperar los humanos infectados que, por otro lado, son quienes propagan el virus en forma involuntaria.
 
+Mensaje para probar el git pull

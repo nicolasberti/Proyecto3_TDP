@@ -7,7 +7,12 @@ public class Jugador extends Entidad {
 	private int cargaViral;
 	
 	public Jugador(int velocidad) {
-		super.posicion = new Posicion();
+		//Modificar
+		int x,y,r;
+		x=y=r=0;
+		
+		
+		super.posicion = new Posicion(x,y,r);
 		super.velocidad = velocidad;
 	}
 	

@@ -1,8 +1,10 @@
 package entidades;
 
+import javax.swing.JLabel;
+
 import logica.*;
 
-public abstract class Entidad {
+public abstract class Entidad extends JLabel {
 
 	protected int velocidad;
 	protected Posicion posicion;

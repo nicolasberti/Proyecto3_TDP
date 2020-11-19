@@ -23,11 +23,11 @@ public class GUI extends JFrame {
 	private static int x = 600;
 	private static int y = 500;
 	private static int lineaY = 470;
+	
+	private JPanel panelJuego;
 	private JLabel mapaGrafico;
 	private JLabel linea;
 	private Jugador jugador;
-	private JLabel lblNewLabel;
-	private List<Infectado> infectados;
 
 	/**
 	 * Launch the application.
@@ -57,21 +57,11 @@ public class GUI extends JFrame {
 		panelPrincipal.setLayout(null);
 		
 		miJuego = new Juego(x, y, lineaY, 3);
-		miJuego.empezar();
 		
-		
-		
-		JPanel panelJuego = new JPanel();
+		panelJuego = new JPanel();
 		panelJuego.setBounds(10, 11, x, y);
 		panelPrincipal.add(panelJuego);
 		panelJuego.setLayout(null);
-		
-		jugador = miJuego.getJugador();
-		ImageIcon jugadorImg = new ImageIcon(GUI.class.getResource("/img/jugador.gif"));
-		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(jugador.getWidth(), jugador.getHeight(), Image.SCALE_DEFAULT));
-		jugador.setIcon(jugadorIcon);
-		panelJuego.add(jugador);
-
 		
 		mapaGrafico = new JLabel("");
 		mapaGrafico.setBounds(0, 0, x, y);
@@ -80,13 +70,37 @@ public class GUI extends JFrame {
 		linea.setBounds(0, lineaY, 600, 7);
 		panelJuego.add(linea);
 		
-		rePaint();
+		miJuego.empezar();
+		agregarJugador();
+		rePaintMapa();
+		rePaintInfectados();
 		
 		// Siempre a lo último para que lo puedan sobreponer.
 		panelJuego.add(mapaGrafico);
 		}
 	
-	private void rePaint() {
+	private void agregarJugador() {
+		jugador = miJuego.getJugador();
+		panelJuego.add(jugador);
+		Particula particula = new Particula(10);
+		panelJuego.add(particula);
+		
+		
+		
+	}
+	
+	private void rePaintInfectados() {
+		List<Infectado> infectados = miJuego.getInfectadosActuales();
+		for(Infectado infectado : infectados) {
+			panelJuego.add(infectado);
+			
+			
+		}
+		
+		
+	}
+	
+	private void rePaintMapa() {
 	
 		Image lineaImg = new ImageIcon(GUI.class.getResource("/img/linea.png")).getImage();
 		ImageIcon lineaImg2 =new ImageIcon(lineaImg.getScaledInstance(x, y, Image.SCALE_SMOOTH));

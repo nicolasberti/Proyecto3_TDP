@@ -1,6 +1,8 @@
 package logica;
 
-import entidades.Jugador;
+import java.util.List;
+
+import entidades.*;
 
 public class Juego {
 
@@ -21,6 +23,10 @@ public class Juego {
 	public void empezar() {
 		nivelActual = 1; // El nivel actual en el backend es nivelActual-1 y en el frontend simplemente es nivelActual.
 		miMapa.empezar();
+	}
+	
+	public List<Infectado> getInfectadosActuales(){
+		return miMapa.getNivelActual().getInfectados();
 	}
 	
 	public Jugador getJugador() { 

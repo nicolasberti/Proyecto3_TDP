@@ -1,5 +1,9 @@
 package logica;
 
-public class HiloMovimiento {
+import java.util.List;
+import entidades.*;
+
+public class HiloMovimiento extends Thread {
+
 
 }

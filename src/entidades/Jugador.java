@@ -1,5 +1,11 @@
 package entidades;
 
+import java.awt.Image;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
+import aplicacion.GUI;
 import logica.*;
 
 public class Jugador extends Entidad {
@@ -11,7 +17,11 @@ public class Jugador extends Entidad {
 		// Cordenadas preterminadas
 		super.posicion = new Posicion(250,400,5);
 		super.velocidad = velocidad;
-		posicion.actualizar(this);
+		
+		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
+		ImageIcon jugadorImg = new ImageIcon(GUI.class.getResource("/img/jugador.gif"));
+		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
+		this.setIcon(jugadorIcon);
 	}
 	
 	public void disparar() {
@@ -34,8 +44,8 @@ public class Jugador extends Entidad {
 		
 	}
 	
-	public void accept(Visitor visit) {
-		
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 		
 }

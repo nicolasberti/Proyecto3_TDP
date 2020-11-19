@@ -23,6 +23,10 @@ public class Juego {
 		miMapa.empezar();
 	}
 	
+	public Jugador getJugador() { 
+		return jugador;
+	}
+	
 	public void pasarNivel() {
 		
 	}

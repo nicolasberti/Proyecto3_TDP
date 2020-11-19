@@ -7,13 +7,11 @@ public class Jugador extends Entidad {
 	private int cargaViral;
 	
 	public Jugador(int velocidad) {
-		//Modificar
-		int x,y,r;
-		x=y=r=0;
-		
-		
-		super.posicion = new Posicion(x,y,r);
+
+		// Cordenadas preterminadas
+		super.posicion = new Posicion(250,400,5);
 		super.velocidad = velocidad;
+		posicion.actualizar(this);
 	}
 	
 	public void disparar() {

@@ -2,7 +2,9 @@ package aplicacion;
 
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +25,9 @@ public class GUI extends JFrame {
 	private static int lineaY = 470;
 	private JLabel mapaGrafico;
 	private JLabel linea;
+	private Jugador jugador;
+	private JLabel lblNewLabel;
+	private List<Infectado> infectados;
 
 	/**
 	 * Launch the application.
@@ -54,10 +59,19 @@ public class GUI extends JFrame {
 		miJuego = new Juego(x, y, lineaY, 3);
 		miJuego.empezar();
 		
+		
+		
 		JPanel panelJuego = new JPanel();
 		panelJuego.setBounds(10, 11, x, y);
 		panelPrincipal.add(panelJuego);
 		panelJuego.setLayout(null);
+		
+		jugador = miJuego.getJugador();
+		ImageIcon jugadorImg = new ImageIcon(GUI.class.getResource("/img/jugador.gif"));
+		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(jugador.getWidth(), jugador.getHeight(), Image.SCALE_DEFAULT));
+		jugador.setIcon(jugadorIcon);
+		panelJuego.add(jugador);
+
 		
 		mapaGrafico = new JLabel("");
 		mapaGrafico.setBounds(0, 0, x, y);
@@ -66,11 +80,7 @@ public class GUI extends JFrame {
 		linea.setBounds(0, lineaY, 600, 7);
 		panelJuego.add(linea);
 		
-		
-		
 		rePaint();
-		
-		
 		
 		// Siempre a lo último para que lo puedan sobreponer.
 		panelJuego.add(mapaGrafico);

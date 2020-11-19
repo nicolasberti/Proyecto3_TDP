@@ -12,6 +12,10 @@ public class Posicion {
 		this.r = r;
 	}
 	
+	public void actualizar(Entidad e) {
+		e.setBounds(x, y, 70, 70);
+	}
+	
 	public int getX() { return x; }
 	public int getY() { return y; }
 	public int getR() { return r; }

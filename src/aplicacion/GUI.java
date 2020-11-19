@@ -16,10 +16,13 @@ public class GUI extends JFrame {
 
 	private JPanel panelPrincipal;
 	private Juego miJuego;
+	
+	// Tamaño del mapa y linea horizontal donde se restablecen los infectados y los premios.
 	private static int x = 600;
 	private static int y = 500;
-	private static int lineaY = 440;
+	private static int lineaY = 470;
 	private JLabel mapaGrafico;
+	private JLabel linea;
 
 	/**
 	 * Launch the application.
@@ -58,18 +61,34 @@ public class GUI extends JFrame {
 		
 		mapaGrafico = new JLabel("");
 		mapaGrafico.setBounds(0, 0, x, y);
-		panelJuego.add(mapaGrafico);
+		
+		linea = new JLabel(" ");
+		linea.setBounds(0, lineaY, 600, 7);
+		panelJuego.add(linea);
+		
+		
+		
 		rePaint();
 		
+		
+		
+		// Siempre a lo último para que lo puedan sobreponer.
+		panelJuego.add(mapaGrafico);
 		}
 	
 	private void rePaint() {
 	
+		Image lineaImg = new ImageIcon(GUI.class.getResource("/img/linea.png")).getImage();
+		ImageIcon lineaImg2 =new ImageIcon(lineaImg.getScaledInstance(x, y, Image.SCALE_SMOOTH));
+		linea.setIcon(lineaImg2);
+		
 		// Actualiza el mapa
 		Image mapa = new ImageIcon(GUI.class.getResource("/img/"+miJuego.getMapa().getNivelActual().getGrafico())).getImage();
 		ImageIcon mapa2 =new ImageIcon(mapa.getScaledInstance(x, y, Image.SCALE_SMOOTH));
 		mapaGrafico.setIcon(mapa2);
+		
+		
+		
+		
 	}
-		
-		
 }

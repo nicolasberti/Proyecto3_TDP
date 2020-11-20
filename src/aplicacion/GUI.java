@@ -13,6 +13,9 @@ import javax.swing.border.EmptyBorder;
 import logica.*;
 import entidades.*;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUI extends JFrame {
 
@@ -49,8 +52,10 @@ public class GUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 868, 644);
+		setBounds(100, 100, 635, 644);
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
@@ -60,59 +65,63 @@ public class GUI extends JFrame {
 		
 		panelJuego = new JPanel();
 		panelJuego.setBounds(10, 11, x, y);
-		panelPrincipal.add(panelJuego);
 		panelJuego.setLayout(null);
+		panelPrincipal.add(panelJuego);
 		
 		mapaGrafico = new JLabel("");
 		mapaGrafico.setBounds(0, 0, x, y);
+		panelJuego.add(mapaGrafico);
 		
-		linea = new JLabel(" ");
+		linea = new JLabel("");
 		linea.setBounds(0, lineaY, 600, 7);
 		panelJuego.add(linea);
 		
-		miJuego.empezar();
-		agregarJugador();
-		rePaintMapa();
-		rePaintInfectados();
+		JPanel panelScore = new JPanel();
+		panelScore.setBounds(10, 522, 600, 72);
+		panelPrincipal.add(panelScore);
+		panelScore.setLayout(null);
 		
-		// Siempre a lo último para que lo puedan sobreponer.
-		panelJuego.add(mapaGrafico);
+		JButton botonEmpezar = new JButton("Empezar");
+		botonEmpezar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				empezar();
+				botonEmpezar.setVisible(false);
+			}
+		});
+		botonEmpezar.setBounds(501, 38, 89, 23);
+		panelScore.add(botonEmpezar);
+		
 		}
 	
+	private void empezar() {
+		miJuego.empezar();
+		rePaintInfectados();
+		agregarJugador();
+		rePaintMapa();
+		panelJuego.repaint();
+	}
 	private void agregarJugador() {
 		jugador = miJuego.getJugador();
 		panelJuego.add(jugador);
 		Particula particula = new Particula(10);
 		panelJuego.add(particula);
-		
-		
-		
 	}
 	
 	private void rePaintInfectados() {
 		List<Infectado> infectados = miJuego.getInfectadosActuales();
 		for(Infectado infectado : infectados) {
 			panelJuego.add(infectado);
-			
-			
 		}
-		
-		
 	}
 	
 	private void rePaintMapa() {
-	
 		Image lineaImg = new ImageIcon(GUI.class.getResource("/img/linea.png")).getImage();
 		ImageIcon lineaImg2 =new ImageIcon(lineaImg.getScaledInstance(x, y, Image.SCALE_SMOOTH));
 		linea.setIcon(lineaImg2);
-		
 		// Actualiza el mapa
 		Image mapa = new ImageIcon(GUI.class.getResource("/img/"+miJuego.getMapa().getNivelActual().getGrafico())).getImage();
 		ImageIcon mapa2 =new ImageIcon(mapa.getScaledInstance(x, y, Image.SCALE_SMOOTH));
 		mapaGrafico.setIcon(mapa2);
-		
-		
-		
-		
+		panelJuego.add(mapaGrafico);
 	}
 }

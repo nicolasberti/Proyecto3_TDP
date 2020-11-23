@@ -22,17 +22,13 @@ public class Posicion {
 	
 	public boolean estaEnElRadio(Posicion p) {
 		boolean esta = false;
-		/*
-		 *  Se calcula la distancia entre 2 puntos: si la distancia es menor o igual que el radio de la posición, entonces está en el radio.
-		 *  Esto sirve para saber si dos entidades colisionaron.
-		 *  
-		*/
-		double cateto1 = (double) x - p.getX();
-		double cateto2 = (double) y - p.getY();
-		double hipotenusa = Math.sqrt(cateto1*cateto1 + cateto2*cateto2);
-		if(hipotenusa <= (double)r)
-			esta = true;
+			if(p.getX() >= x-30 && p.getX() <= x+30)
+				if(p.getY() >= y-30 && p.getY() <= y+30)
+					esta = true;
+		// posible algoritmo -> deja a r sin ninguna acción de momento.
 		return esta;
+		
+		
 	}
 	
 }

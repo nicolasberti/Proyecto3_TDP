@@ -11,6 +11,7 @@ public class Nivel {
 	private int infectados;
 	private List<Infectado> misInfectados;
 	private String grafico;
+	private int tandaActual; // Si tandaActual >= 3 es porque el nivel terminó.
 	
 	public Nivel(int infectados, int nivel, String grafico) {
 		this.infectados = infectados;
@@ -18,16 +19,43 @@ public class Nivel {
 		Random rnd = new Random();
 		for(int i = 0; i < infectados; i++) {
 			int random = rnd.nextInt(2);
+			Infectado infectado;
 			if(random == 0) {
-				misInfectados.add(new Alpha());
+				infectado = new Alpha();
+				
 			} else {
-				misInfectados.add(new Beta());
+				infectado = new Beta();
 			}
+			if(i < infectados/2)
+				infectado.setJugando(true);
+			else
+				infectado.setJugando(false);
+			misInfectados.add(infectado);
 		}
 		this.grafico = grafico; // nombre de la imagen del nivel
+		tandaActual = 1;
 	}
 	
 	public List<Infectado> getInfectados() { return misInfectados; }
+	
+	public int infectadosJugando() {
+		int cont = 0;
+		for(Infectado infectado : misInfectados) {
+			if(infectado.getJugando())
+				cont++;
+		}
+		return cont;
+	}
+	
+	public void segundaTanda() {
+		int cont = 0;
+		for(Infectado infectado : misInfectados) {
+			if(cont >= infectados/2)
+				infectado.setJugando(true);
+			cont++;
+		}
+		tandaActual = 2;
+	}
 	
 	public String getGrafico() {
 		return grafico;

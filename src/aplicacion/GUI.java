@@ -41,6 +41,7 @@ public class GUI extends JFrame {
 				try {
 					GUI frame = new GUI();
 					frame.setVisible(true);
+					frame.setResizable(false); // No deja agrandar ni achicar el frame.
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,6 +53,7 @@ public class GUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI() {
+		setTitle("Vertical shooter");
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,7 +63,7 @@ public class GUI extends JFrame {
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
-		miJuego = new Juego(x, y, lineaY, 3);
+		miJuego = new Juego(x, y, lineaY, 3, this);
 		
 		panelJuego = new JPanel();
 		panelJuego.setBounds(10, 11, x, y);
@@ -95,26 +97,29 @@ public class GUI extends JFrame {
 	
 	private void empezar() {
 		miJuego.empezar();
-		rePaintInfectados();
+		agregarInfectados();
 		agregarJugador();
-		rePaintMapa();
+		agregarMapa();
 		panelJuego.repaint();
 	}
+	
 	private void agregarJugador() {
 		jugador = miJuego.getJugador();
 		panelJuego.add(jugador);
 		Particula particula = new Particula(10);
 		panelJuego.add(particula);
+		miJuego.getHilo().getParticulas().add(particula);
 	}
 	
-	private void rePaintInfectados() {
+	private void agregarInfectados() {
 		List<Infectado> infectados = miJuego.getInfectadosActuales();
 		for(Infectado infectado : infectados) {
-			panelJuego.add(infectado);
+			if(infectado.getJugando())
+				panelJuego.add(infectado);
 		}
 	}
 	
-	private void rePaintMapa() {
+	private void agregarMapa() {
 		Image lineaImg = new ImageIcon(GUI.class.getResource("/img/linea.png")).getImage();
 		ImageIcon lineaImg2 =new ImageIcon(lineaImg.getScaledInstance(x, y, Image.SCALE_SMOOTH));
 		linea.setIcon(lineaImg2);
@@ -123,5 +128,14 @@ public class GUI extends JFrame {
 		ImageIcon mapa2 =new ImageIcon(mapa.getScaledInstance(x, y, Image.SCALE_SMOOTH));
 		mapaGrafico.setIcon(mapa2);
 		panelJuego.add(mapaGrafico);
+	}
+	
+	public void repintar() {
+		repintarInfectados();
+		this.repaint();
+	}
+	
+	private void repintarInfectados() {
+		panelJuego.repaint();
 	}
 }

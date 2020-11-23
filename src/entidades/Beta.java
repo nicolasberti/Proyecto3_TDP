@@ -33,12 +33,6 @@ public class Beta extends Infectado {
 	}
 
 	@Override
-	public void volverPos() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void congelar() {
 		// TODO Auto-generated method stub
 		
@@ -49,5 +43,4 @@ public class Beta extends Infectado {
 		visitor.visit(this);
 		
 	}
-
 }

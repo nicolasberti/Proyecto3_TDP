@@ -28,11 +28,19 @@ public class Mapa {
 		
 	}
 	
+	public int getX() { return x; }
+	public int getY() { return y; }
+	public int getLinea() { return lineaY; }
+	
 	public Nivel getNivelActual() {
 		return nivelActual;
 	}
 	
-	public void empezar() {
-		nivelActual = misNiveles.get(0);
+	/**
+	 * Comienza un nivel determinado.
+	 * @param nivel Nivel a empezar.
+	 */
+	public void empezar(int nivel) {
+		nivelActual = misNiveles.get(nivel);
 	}
 }

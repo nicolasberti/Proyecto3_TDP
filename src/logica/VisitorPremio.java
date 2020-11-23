@@ -2,28 +2,28 @@ package logica;
 
 import entidades.*;
 
-public class VisitorParticula extends Visitor {
+public class VisitorPremio extends Visitor {
 
 	@Override
 	public void visit(Particula particula) {
-		// Algoritmo si una PARTICULA visita a una PARTICULA
+		// Algoritmo si un PREMIO visita a una PARTICULA
 	}
 
 	@Override
 	public void visit(Jugador jugador) {
-		// Algoritmo si una PARTICULA visita a un JUGADOR
+		// Algoritmo si un PREMIO visita a un JUGADOR
 		
 	}
 
 	@Override
 	public void visit(Infectado infectado) {
-		// Algoritmo si una PARTICULA visita a un INFECTADO
+		// Algoritmo si un PREMIO visita a un INFECTADO
 		
 	}
 	
 	@Override
 	public void visit(Premio premio) {
-		// Algoritmo si una PARTICULA visita a un PREMIO
+		// Algoritmo si un PREMIO visita a un PREMIO
 	}
 
 }

@@ -42,12 +42,12 @@ public class HiloMovimiento extends Thread {
 	public void run() {
 		try {
 			
-			int contadorParticulas = 0;
-			int contadorSegundos = 0;
+			int tiempo = 200; // Tiempo del algoritmo en milisegundos.
+			int contadorSegundos = 0; // Contador de segundos. (Se lee
 			
 			
 			while(jugando) {
-				HiloMovimiento.sleep(200); 
+				HiloMovimiento.sleep(tiempo); 
 				
 				
 				// Movimiento de los infectados
@@ -59,15 +59,13 @@ public class HiloMovimiento extends Thread {
 					}
 
 					// Cada 2 segundos, un infectado puede o no, expandir una particula.
-					if(contadorParticulas*200 == 2200) {
+					if( (contadorSegundos*tiempo)%2000 == 0 ) {
 						Random rnd = new Random();
 						int random = rnd.nextInt(2);
 						if(random == 0) {
 							Particula particulaNueva = new Particula(infectado.getX(), infectado.getY(), 4);
 							particulas.add(particulaNueva);
 						}
-						
-						contadorParticulas = 0;
 					}
 					
 					// Colisión entre infectado y jugador
@@ -79,9 +77,9 @@ public class HiloMovimiento extends Thread {
 					for(Proyectil proyectil : proyectiles) {
 						if(infectado.estaEnElRadio(proyectil)) {
 							
-						}
-							
+						}	
 					}
+					
 				}
 				
 				List<Particula> listaRemove = new ArrayList<Particula>();
@@ -97,7 +95,7 @@ public class HiloMovimiento extends Thread {
 									
 							}
 							// Fin colisión
-							if( (contadorSegundos*200)%1000 == 0 )
+							if( (contadorSegundos*tiempo)%1000 == 0 )
 								particula.sumarTiempo();
 						}
 					} else {
@@ -114,8 +112,11 @@ public class HiloMovimiento extends Thread {
 						
 					}
 				}
-				contadorSegundos++; // es segundo si y solo si (contadorSegundos*200)%1000=0
-				contadorParticulas++;
+				
+				contadorSegundos++; // es segundo si y solo si (contadorSegundos*tiempo)%1000=0
+				if(contadorSegundos >= 10000) // En caso de que la variable tome valores muy grandes, se restablece cuando es mayor o igual a 10000.
+					contadorSegundos = 0;
+					
 				((GUI_nueva) frame).repaint();
 			}
 		

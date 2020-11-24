@@ -3,13 +3,16 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mapa {
+import javax.swing.JPanel;
+
+public class Mapa extends JPanel {
 
 	private Nivel nivelActual;
 	private List<Nivel> misNiveles;
 	private int x,y,lineaY;
 	
 	public Mapa(int x, int y, int lineaY, int niveles) {
+		super();
 		nivelActual = null; // Cuando se comience el juego se establece el nivel
 		misNiveles = new ArrayList<Nivel>();
 		this.x = x;

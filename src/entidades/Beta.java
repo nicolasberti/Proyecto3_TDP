@@ -6,7 +6,7 @@ import java.util.Random;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import aplicacion.GUI;
+import aplicacion.GUI_nueva;
 import logica.Visitor;
 
 public class Beta extends Infectado {
@@ -21,7 +21,7 @@ public class Beta extends Infectado {
 		super.posInicial[1] = posicion.getY();
 		
 		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
-		ImageIcon jugadorImg = new ImageIcon(GUI.class.getResource("/img/infectadoBeta.gif"));
+		ImageIcon jugadorImg = new ImageIcon(GUI_nueva.class.getResource("/img/infectadoBeta.gif"));
 		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(jugadorIcon);
 	}

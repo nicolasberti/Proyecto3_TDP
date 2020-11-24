@@ -8,32 +8,23 @@ import javax.swing.ImageIcon;
 import aplicacion.GUI_nueva;
 import logica.Visitor;
 
-public class Particula extends Entidad {
+public class Proyectil extends Entidad {
 
-	private int tiempoEnVida; // Segundos
 	
-	public Particula(int x, int y, int velocidad) {
-		// OBS: Si bien la particula se desplaza en forma vertical (es decir, solo avanza en una dirección) puede infectar en una cierta circunferencia.
-		super.posicion = new Posicion(x,y,5);
-		super.velocidad = velocidad;
+	public Proyectil(int velocidad) {
+		// Cordenadas preterminadas
+		super.posicion = new Posicion(250,250,5);
+		super.velocidad = velocidad; // Velocidad según el arma que la dispara
+				
 		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
-		this.tiempoEnVida = 0;
-		
 		ImageIcon jugadorImg = new ImageIcon(GUI_nueva.class.getResource("/img/disparo.png"));
 		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(jugadorIcon);
 	}
 	
-	public void sumarTiempo() {
-		tiempoEnVida++;
-	}
-	
-	public int getTiempo() { return tiempoEnVida; }
-	
 	@Override
 	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+		visitor.visit(this);
 	}
 
 }

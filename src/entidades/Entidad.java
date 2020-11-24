@@ -9,6 +9,7 @@ public abstract class Entidad extends JLabel {
 	protected int velocidad;
 	protected Posicion posicion;
 	
+	
 	public abstract void accept(Visitor visitor);
 	
 	public int getVelocidad() { return velocidad; }
@@ -33,5 +34,10 @@ public abstract class Entidad extends JLabel {
 	}
 	
 	private Posicion getPosicion() { return posicion; }
+	
+	public int calculoAvanzar(int velocidad) {
+		int entero = 1;
+		return velocidad*entero;
+	}
 	
 }

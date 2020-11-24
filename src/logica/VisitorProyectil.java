@@ -2,11 +2,11 @@ package logica;
 
 import entidades.*;
 
-public class VisitorParticula extends Visitor {
+public class VisitorProyectil extends Visitor {
 
 	@Override
-	public void visit(Particula particula) {
-		// Algoritmo si una PARTICULA visita a una PARTICULA
+	public void visit(Proyectil proyectil) {
+		// Algoritmo si una PARTICULA visita a un PROYECTIL
 	}
 
 	@Override

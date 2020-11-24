@@ -5,7 +5,7 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import aplicacion.GUI;
+import aplicacion.*;
 import logica.*;
 
 public class Jugador extends Entidad {
@@ -19,7 +19,7 @@ public class Jugador extends Entidad {
 		super.velocidad = velocidad;
 		
 		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
-		ImageIcon jugadorImg = new ImageIcon(GUI.class.getResource("/img/jugador.gif"));
+		ImageIcon jugadorImg = new ImageIcon(GUI_nueva.class.getResource("/img/jugador.gif"));
 		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(jugadorIcon);
 	}

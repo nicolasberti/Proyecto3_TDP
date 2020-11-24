@@ -5,8 +5,8 @@ import entidades.*;
 public class VisitorPremio extends Visitor {
 
 	@Override
-	public void visit(Particula particula) {
-		// Algoritmo si un PREMIO visita a una PARTICULA
+	public void visit(Proyectil proyectil) {
+		// Algoritmo si un PREMIO visita a un PROYECTIL
 	}
 
 	@Override

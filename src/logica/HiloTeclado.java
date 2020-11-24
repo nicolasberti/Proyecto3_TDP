@@ -28,17 +28,19 @@ public class HiloTeclado extends Thread implements KeyListener {
 		
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_LEFT: {
-			if(jugador.getX() <= 10)
-				jugador.setX(10); 
-			else
+			if(jugador.getX() >= 10) {
 				jugador.moverIzquierda();
+				if(jugador.getX() <= 10)
+					jugador.setX(10); 
+			}
 			break;
 		}
 		case KeyEvent.VK_RIGHT: {
-			if(jugador.getX() >= juego.getMapa().getX()-10)
-				jugador.setX(juego.getMapa().getX()-10);
-			else
+			if(jugador.getX() <= juego.getMapa().getX()-70) {
 				jugador.moverDerecha();
+				if(jugador.getX() >= juego.getMapa().getX()-70)
+					jugador.setX(juego.getMapa().getX()-70);
+			}
 			break;
 		}
 		}

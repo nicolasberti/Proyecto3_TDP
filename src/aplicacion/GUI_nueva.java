@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 import entidades.Infectado;
 import entidades.Jugador;
 import entidades.Proyectil;
+import logica.HiloTeclado;
 import logica.Juego;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -70,6 +71,9 @@ public class GUI_nueva extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI_nueva() {
+		
+		this.setFocusable(true);
+		
 		miJuego = new Juego(x, y, lineaY, 3, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 646);
@@ -95,6 +99,7 @@ public class GUI_nueva extends JFrame {
 		botonEmpezar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					empezarJuego();
+					botonEmpezar.setVisible(false);
 			}
 		});
 		botonEmpezar.setBounds(501, 40, 89, 23);
@@ -115,6 +120,9 @@ public class GUI_nueva extends JFrame {
 		jugador = miJuego.getJugador();
 		agregarJugador();
 		agregarInfectados();
+		
+		this.addKeyListener(new HiloTeclado(this)); // Movimientos del jugador.
+		
 	}
 	
 	private void agregarJugador() {
@@ -132,4 +140,6 @@ public class GUI_nueva extends JFrame {
 				panelJuego.add(infectado);
 		}
 	}
+	
+	public Juego getJuego() { return miJuego; }
 }

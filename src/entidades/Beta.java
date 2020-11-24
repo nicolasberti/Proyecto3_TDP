@@ -19,8 +19,8 @@ public class Beta extends Infectado {
 		super.posInicial = new int[2];
 		super.posInicial[0] = posicion.getX();
 		super.posInicial[1] = posicion.getY();
-		
-		this.setBounds(posicion.getX(), posicion.getY(), 100, 100);
+		super.girando = false;
+		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
 		ImageIcon jugadorImg = new ImageIcon(GUI_nueva.class.getResource("/img/infectadoBeta.gif"));
 		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(jugadorIcon);

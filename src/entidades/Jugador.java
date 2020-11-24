@@ -33,11 +33,11 @@ public class Jugador extends Entidad {
 	}
 	
 	public void moverDerecha() {
-		this.setX((this.getX())+this.calculoAvanzar(this.getVelocidad()));
+		
 	}
 	
 	public void moverIzquierda() {
-		this.setX((this.getX())-this.calculoAvanzar(this.getVelocidad()));
+		
 	}
 	
 	public void usarPremio(Premio p) {

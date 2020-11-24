@@ -21,14 +21,14 @@ public class Posicion {
 	public void setR(int r) { this.r = r; }
 	
 	public boolean estaEnElRadio(Posicion p) {
-		boolean esta = false;
-			if(p.getX() >= x-30 && p.getX() <= x+30)
-				if(p.getY() >= y-30 && p.getY() <= y+30)
-					esta = true;
-		// posible algoritmo -> deja a r sin ninguna acción de momento.
-		return esta;
-		
-		
+		Double distance;
+		int hitBox;
+		boolean inRange = false;
+		distance = Math.sqrt(Math.pow(x-p.getX(), 2)+Math.pow(y-p.getY(),2));
+		hitBox = p.getR() + r;
+		if(hitBox>distance)
+			inRange = true;
+		return inRange;	
 	}
 	
 }

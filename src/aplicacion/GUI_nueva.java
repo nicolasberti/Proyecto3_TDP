@@ -1,5 +1,7 @@
 package aplicacion;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,16 +15,11 @@ import javax.swing.border.EmptyBorder;
 import entidades.Infectado;
 import entidades.Jugador;
 import entidades.Proyectil;
-import logica.HiloTeclado;
 import logica.Juego;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class GUI_nueva extends JFrame {
 
@@ -62,7 +59,6 @@ public class GUI_nueva extends JFrame {
 					GUI_nueva frame = new GUI_nueva();
 					frame.setVisible(true);
 					frame.setResizable(false); // No deja agrandar ni achicar el frame.
-					 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -74,14 +70,10 @@ public class GUI_nueva extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI_nueva() {
-		
-		this.setFocusable(true);
-		
 		miJuego = new Juego(x, y, lineaY, 3, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 646);
 		panelPrincipal = new JPanel();
-		
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
@@ -103,13 +95,10 @@ public class GUI_nueva extends JFrame {
 		botonEmpezar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					empezarJuego();
-					botonEmpezar.setVisible(false);
 			}
 		});
 		botonEmpezar.setBounds(501, 40, 89, 23);
 		panelScore.add(botonEmpezar);
-		
-		
 	}
 	
 	
@@ -126,12 +115,7 @@ public class GUI_nueva extends JFrame {
 		jugador = miJuego.getJugador();
 		agregarJugador();
 		agregarInfectados();
-		
-		this.addKeyListener(new HiloTeclado(this)); // Movimientos del jugador.
-		
 	}
-	
-	public Juego getJuego() { return miJuego; }
 	
 	private void agregarJugador() {
 		jugador = miJuego.getJugador();
@@ -148,6 +132,4 @@ public class GUI_nueva extends JFrame {
 				panelJuego.add(infectado);
 		}
 	}
-	
-	
 }

@@ -63,8 +63,14 @@ public class HiloMovimiento extends Thread {
 						Random rnd = new Random();
 						int random = rnd.nextInt(2);
 						if(random == 0) {
+							// Hacer que la particula se genere entre X=[infectado.getX()-30, infectado.getX()+30]
+							// Si está muy cerca de la izquierda ( infectado.getX()-30 < 0 ) simplemente X=[infectado.getX(), infectado.getX()+30]
+							// Si está muy cerca de la derecha ( infectado.getX()+30 > mapa.getX() ) simplemente X=[infectado.getX()-30, infectado.getX()]
+							
 							Particula particulaNueva = new Particula(infectado.getX(), infectado.getY(), 4);
 							particulas.add(particulaNueva);
+							
+							// Agregar particula al panel.
 						}
 					}
 					
@@ -103,6 +109,7 @@ public class HiloMovimiento extends Thread {
 					}
 				}
 				if(listaRemove.size() > 0)
+					// También hacer que las particulas se eliminel del panel. -> método getPanel() en la GUI.
 					particulas.removeAll(listaRemove);
 				
 				

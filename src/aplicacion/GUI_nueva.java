@@ -94,7 +94,7 @@ public class GUI_nueva extends JFrame {
 		botonEmpezar = new JButton("Empezar");
 		botonEmpezar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				empezarJuego();
+					empezarJuego();
 			}
 		});
 		botonEmpezar.setBounds(501, 40, 89, 23);
@@ -132,9 +132,4 @@ public class GUI_nueva extends JFrame {
 				panelJuego.add(infectado);
 		}
 	}
-	
-		
-	
-
-	
 }

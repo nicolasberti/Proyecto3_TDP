@@ -1,0 +1,1 @@
+Todo lo relacionado al segundo sprint ya está implementado como código. Los puntos que dicen "Diseñar ..." están parcialmente implementados en las respectivas clases.

@@ -26,22 +26,6 @@ public class Alpha extends Infectado {
 		this.setIcon(jugadorIcon);
 	}
 
-	
-
-	
-	@Override
-	public void desaparecer() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void congelar() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

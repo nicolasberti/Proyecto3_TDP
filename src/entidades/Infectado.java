@@ -22,10 +22,9 @@ public abstract class Infectado extends Entidad {
 		posicion.setY(posInicial[1]);
 	}
 	
+	public void desaparecer() { }
 	
-	public abstract void desaparecer();
-	//public abstract void moverse();
-	public abstract void congelar();
+	public void congelar() { }
 	
 	
 }

@@ -20,7 +20,7 @@ public class Alpha extends Infectado {
 		super.posInicial[0] = posicion.getX();
 		super.posInicial[1] = posicion.getY();
 		
-		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
+		this.setBounds(posicion.getX(), posicion.getY(), 100, 100);
 		ImageIcon jugadorImg = new ImageIcon(GUI_nueva.class.getResource("/img/infectadoAlpha.gif"));
 		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(jugadorIcon);

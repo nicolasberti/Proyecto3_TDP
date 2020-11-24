@@ -22,6 +22,11 @@ public class Proyectil extends Entidad {
 		this.setIcon(jugadorIcon);
 	}
 	
+	// Los proyectiles se mueven de abajo hacia arriba.
+	public void moverse() {
+		this.setY( ( this.getY()- this.calculoAvanzar(this.getVelocidad()) ) );
+	}
+	
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);

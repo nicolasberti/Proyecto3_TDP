@@ -22,6 +22,11 @@ public abstract class Infectado extends Entidad {
 		posicion.setY(posInicial[1]);
 	}
 	
+	// Los infectados se mueven de arriba hacia abajo.
+	public void moverse() {
+		this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
+	}
+	
 	public void desaparecer() { }
 	
 	public void congelar() { }

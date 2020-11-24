@@ -52,10 +52,10 @@ public class HiloMovimiento extends Thread {
 				
 				// Movimiento de los infectados
 				for(Infectado infectado : infectados) {
-					if(infectado.getY() >= miJuego.getMapa().getLinea()) {
+					if(infectado.getY() >= miJuego.getMapa().getLinea()) { // El hilo se encarga de comprobar si las entidades pasan la línea de abajo o arriba según el tiempo de entidad que se esté moviendo.
 						infectado.volverPos();
 					} else {
-						infectado.setY( ( infectado.getY()+ infectado.calculoAvanzar(infectado.getVelocidad()) ) );
+						infectado.moverse();
 					}
 
 					// Cada 2 segundos, un infectado puede o no, expandir una particula.
@@ -91,7 +91,7 @@ public class HiloMovimiento extends Thread {
 						if(particula.getY() >= miJuego.getMapa().getLinea()) {
 							listaRemove.add(particula);
 						} else {
-							particula.setY( ( particula.getY()+ particula.calculoAvanzar(particula.getVelocidad()) ) );
+							particula.moverse();
 							// Colisión entre jugador y particula
 							if(miJuego.getJugador().estaEnElRadio(particula)) {
 									

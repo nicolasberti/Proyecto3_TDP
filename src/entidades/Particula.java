@@ -21,6 +21,11 @@ public class Particula extends Entidad {
 		// Las particulas no tienen un sprite, ya que se interpretan como que son muy chicas. En el caso de colocar un sprite, simplemente, hay que colocar un icono acá y en el hilo de movimiento agregarlas al panel del juego.
 	}
 	
+	// Las particulas se mueven de arriba hacia abajo.
+	public void moverse() {
+		this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
+	}
+	
 	public void sumarTiempo() {
 		tiempoEnVida++;
 	}

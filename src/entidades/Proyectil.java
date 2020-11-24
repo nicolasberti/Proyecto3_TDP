@@ -10,12 +10,13 @@ import logica.Visitor;
 
 public class Proyectil extends Entidad {
 
+	private int cargaDesinfeccion;
 	
-	public Proyectil(int velocidad) {
+	public Proyectil(int x, int y, int velocidad, int cargaDesinfeccion) {
 		// Cordenadas preterminadas
-		super.posicion = new Posicion(250,250,5);
+		super.posicion = new Posicion(x,y,20);
 		super.velocidad = velocidad; // Velocidad según el arma que la dispara
-				
+		this.cargaDesinfeccion = cargaDesinfeccion;
 		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
 		ImageIcon jugadorImg = new ImageIcon(GUI_nueva.class.getResource("/img/disparo.png"));
 		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
@@ -27,9 +28,7 @@ public class Proyectil extends Entidad {
 		this.setY( ( this.getY()- this.calculoAvanzar(this.getVelocidad()) ) );
 	}
 	
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-	}
+	public int getCargaDesinfeccion() { return cargaDesinfeccion; }
+	
 
 }

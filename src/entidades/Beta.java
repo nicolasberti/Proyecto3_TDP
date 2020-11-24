@@ -13,8 +13,8 @@ public class Beta extends Infectado {
 
 	public Beta() {
 		Random rnd = new Random();
-		super.posicion = new Posicion(rnd.nextInt(500), rnd.nextInt(100),3);
-		super.cargaViral = 15;
+		super.rangoDeInfeccion = 30;
+		super.posicion = new Posicion(rnd.nextInt(500), rnd.nextInt(100),rangoDeInfeccion);
 		super.velocidad = 1;
 		super.posInicial = new int[2];
 		super.posInicial[0] = posicion.getX();
@@ -26,9 +26,4 @@ public class Beta extends Infectado {
 		this.setIcon(jugadorIcon);
 	}
 
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-		
-	}
 }

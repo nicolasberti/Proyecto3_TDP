@@ -47,11 +47,14 @@ public class Nivel {
 		return cont;
 	}
 	
+	public int getTandaActual() { return tandaActual; }
+	
 	public void segundaTanda() {
 		int cont = 0;
 		for(Infectado infectado : misInfectados) {
-			if(cont >= infectados/2)
+			if(cont >= infectados/2) {
 				infectado.setJugando(true);
+			}
 			cont++;
 		}
 		tandaActual = 2;

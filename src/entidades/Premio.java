@@ -13,7 +13,4 @@ public abstract class Premio extends Entidad {
 		this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
 	}
 	
-	public void accept(Visitor visit) {
-		
-	}
 }

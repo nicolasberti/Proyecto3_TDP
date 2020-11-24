@@ -74,7 +74,7 @@ public class GUI_nueva extends JFrame {
 		
 		this.setFocusable(true);
 		
-		miJuego = new Juego(x, y, lineaY, 3, this);
+		miJuego = new Juego(x, y, lineaY, 1, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 646);
 		panelPrincipal = new JPanel();
@@ -119,27 +119,37 @@ public class GUI_nueva extends JFrame {
 		fondo = new ImageIcon(GUI_nueva.class.getResource("/img/"+miJuego.getMapa().getNivelActual().getGrafico())).getImage();
 		jugador = miJuego.getJugador();
 		agregarJugador();
-		agregarInfectados();
-		
+		agregarInfectados(miJuego.getHilo().getInfectados());
 		this.addKeyListener(new HiloTeclado(this)); // Movimientos del jugador.
-		
 	}
 	
 	private void agregarJugador() {
 		jugador = miJuego.getJugador();
 		panelJuego.add(jugador);
-		Proyectil proyectil = new Proyectil(10);
-		panelJuego.add(proyectil);
-		miJuego.getHilo().getProyectiles().add(proyectil);
 	}
 	
-	private void agregarInfectados() {
-		List<Infectado> infectados = miJuego.getInfectadosActuales();
+	public void pasarNivel() {
+		miJuego.pasarNivel();
+		fondo = new ImageIcon(GUI_nueva.class.getResource("/img/"+miJuego.getMapa().getNivelActual().getGrafico())).getImage();
+		agregarInfectados(miJuego.getHilo().getInfectados());
+		repaint();
+	}
+	
+	public void agregarInfectados(List<Infectado> infectados) {
 		for(Infectado infectado : infectados) {
 			if(infectado.getJugando())
 				panelJuego.add(infectado);
 		}
 	}
+	
+	public void disparo() {
+		Proyectil proyectil = new Proyectil(jugador.getX(), jugador.getY(), jugador.getArma().getVelocidad(), jugador.getArma().getCargaDesinfeccion());
+		miJuego.getHilo().getProyectiles().add(proyectil);
+		panelJuego.add(proyectil);
+		repaint();
+	}
+	
+	public JPanel getPanel() { return panelJuego; }
 	
 	public Juego getJuego() { return miJuego; }
 }

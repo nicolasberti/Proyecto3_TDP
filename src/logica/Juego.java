@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import aplicacion.GUI_nueva;
 import entidades.*;
 
 public class Juego {
@@ -12,6 +13,7 @@ public class Juego {
 	private Mapa miMapa; // La clase encargada de dar las ImageIcon es la clase "EntidadGrafica" con el metodo getGrafico();
 	private Jugador jugador;
 	private HiloMovimiento hilo;
+	private boolean jugando;
 	
 	/**
 	 * Creación del juego.
@@ -21,20 +23,22 @@ public class Juego {
 		miMapa = new Mapa(x,y,lineaY,niveles);
 		nivelActual = 0;
 		jugador = new Jugador(3);
-		hilo = new  HiloMovimiento(this,frame);
+		hilo = new  HiloMovimiento(this,((GUI_nueva)frame));
 	}
 	
 	public void empezar() {
 		nivelActual = 1; // El nivel actual en el backend es nivelActual-1 y en el frontend simplemente es nivelActual.
-		miMapa.empezar(0);
+		miMapa.empezar(nivelActual-1);
 		// Hilo de movimientos
 		hilo.empezar();
 		for(Infectado infectado : miMapa.getNivelActual().getInfectados()) {
 			if(infectado.getJugando())
 				hilo.getInfectados().add(infectado);
 		}
-		
+		jugando = true;
 	}
+	
+	public boolean getJugando() { return jugando; }
 	
 	public HiloMovimiento getHilo() {
 		return hilo;
@@ -42,6 +46,10 @@ public class Juego {
 	
 	public void segundaTanda() {
 		miMapa.getNivelActual().segundaTanda();
+		for(Infectado infectado : miMapa.getNivelActual().getInfectados()) {
+			if(infectado.getJugando())
+				hilo.getInfectados().add(infectado);
+		}
 	}
 	
 	public List<Infectado> getInfectadosActuales(){
@@ -54,15 +62,26 @@ public class Juego {
 	
 	public void pasarNivel() {
 		nivelActual++;
-		miMapa.empezar(nivelActual);
+		if(nivelActual-1 < miMapa.getNiveles().size()) {
+			miMapa.empezar(nivelActual-1);
+			for(Infectado infectado : miMapa.getNivelActual().getInfectados()) {
+				if(infectado.getJugando())
+					hilo.getInfectados().add(infectado);
+			}
+		}
+		
+	}
+	
+	public boolean getUltimoNivel() {
+		return miMapa.getNivelActual() == miMapa.getNiveles().get(miMapa.getNiveles().size()-1);
 	}
 	
 	public void ganar() {
-		
+		jugando = false;
 	}
 	
 	public void perder() {
-		
+		jugando = false;
 	}
 	
 	public Mapa getMapa() {

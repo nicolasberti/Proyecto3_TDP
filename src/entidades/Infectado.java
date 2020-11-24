@@ -4,7 +4,7 @@ import logica.Visitor;
 
 public abstract class Infectado extends Entidad {
 
-	protected int cargaViral;
+	protected int cargaViral = 100;
 	protected int rangoDeInfeccion;
 	protected boolean jugando;
 	protected int [] posInicial;
@@ -36,9 +36,15 @@ public abstract class Infectado extends Entidad {
 			}
 	}
 	
-	public void desaparecer() { }
+	public int getCargaViral() { return cargaViral; }
+	
+	public void setCargaViral(int cargaViral) { this.cargaViral = cargaViral; }
 	
 	public void congelar() { }
 	
+	
+	public boolean accept(Visitor visitor, int desinfeccion) {
+		return visitor.visit(this, desinfeccion);
+	}
 	
 }

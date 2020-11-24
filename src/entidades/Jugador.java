@@ -11,12 +11,15 @@ import logica.*;
 public class Jugador extends Entidad {
 
 	private int cargaViral;
+	private Arma miArma;
+	private boolean puedeDisparar;
 	
 	public Jugador(int velocidad) {
-
 		// Cordenadas preterminadas
-		super.posicion = new Posicion(250,400,5);
+		super.posicion = new Posicion(250,400,30);
 		super.velocidad = velocidad;
+		this.miArma = new ArmaComun();
+		this.puedeDisparar = true;
 		
 		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
 		ImageIcon jugadorImg = new ImageIcon(GUI_nueva.class.getResource("/img/jugador.gif"));
@@ -25,9 +28,22 @@ public class Jugador extends Entidad {
 	}
 	
 	public void disparar() {
-		
+		if(puedeDisparar) {
+			puedeDisparar = false;
+			
+			
+			AutoAlgoritmo habilitar = new AutoAlgoritmo(new Disparo(), 1, this); // 1 segundo para habiltiar otro disparo.
+			habilitar.start();
+		}
 	}
 	
+	public Arma getArma() { return miArma; }
+	
+	public void setArma(Arma arma) { this.miArma = arma; }
+	
+	public void puedeDisparar() {
+		puedeDisparar = true;
+	}
 	public void usarEfecto(int indice) {
 		
 	}
@@ -44,8 +60,4 @@ public class Jugador extends Entidad {
 		
 	}
 	
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-	}
-		
 }

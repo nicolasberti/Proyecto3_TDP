@@ -14,12 +14,14 @@ public class Particula extends Entidad {
 	
 	public Particula(int x, int y, int velocidad) {
 		// OBS: Si bien la particula se desplaza en forma vertical (es decir, solo avanza en una dirección) puede infectar en una cierta circunferencia.
-		super.posicion = new Posicion(x,y,5);
+		super.posicion = new Posicion(x,y,20);
 		super.velocidad = velocidad;
-		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
+		this.setBounds(posicion.getX(), posicion.getY(), 35, 35);
 		this.tiempoEnVida = 0;
 		// Agregar imagen de particula
-		
+		ImageIcon jugadorImg = new ImageIcon(GUI_nueva.class.getResource("/img/particula.png"));
+		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
+		this.setIcon(jugadorIcon);
 	}
 	
 	// Las particulas se mueven de arriba hacia abajo.
@@ -33,10 +35,4 @@ public class Particula extends Entidad {
 	
 	public int getTiempo() { return tiempoEnVida; }
 	
-	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -18,10 +18,7 @@ public class Particula extends Entidad {
 		super.velocidad = velocidad;
 		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
 		this.tiempoEnVida = 0;
-		
-		ImageIcon jugadorImg = new ImageIcon(GUI_nueva.class.getResource("/img/disparo.png"));
-		Icon jugadorIcon = new ImageIcon(jugadorImg.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
-		this.setIcon(jugadorIcon);
+		// Las particulas no tienen un sprite, ya que se interpretan como que son muy chicas. En el caso de colocar un sprite, simplemente, hay que colocar un icono acá y en el hilo de movimiento agregarlas al panel del juego.
 	}
 	
 	public void sumarTiempo() {

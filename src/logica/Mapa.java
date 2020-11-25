@@ -25,8 +25,7 @@ public class Mapa extends JPanel {
 		 */
 		int infectados = 4;
 		for(int i = 0; i < niveles; i++) {
-			System.out.println(infectados);
-			misNiveles.add(new Nivel(infectados, i, "nivel_"+ (i+1) +".png"));
+			misNiveles.add(new Nivel(infectados, i, "nivel_"+ (i+1) +".png", this));
 			infectados += 4;
 		}
 		

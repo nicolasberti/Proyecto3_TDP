@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import entidades.Infectado;
 import entidades.Jugador;
 import entidades.Proyectil;
+import logica.AutoRemove;
 import logica.HiloTeclado;
 import logica.Juego;
 import javax.swing.JButton;
@@ -74,7 +76,7 @@ public class GUI_nueva extends JFrame {
 		
 		this.setFocusable(true);
 		
-		miJuego = new Juego(x, y, lineaY, 1, this);
+		miJuego = new Juego(x, y, lineaY, 3, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 646);
 		panelPrincipal = new JPanel();
@@ -128,6 +130,10 @@ public class GUI_nueva extends JFrame {
 		panelJuego.add(jugador);
 	}
 	
+	public void crearExplosion(int x, int y) {
+		
+	}
+	
 	public void pasarNivel() {
 		miJuego.pasarNivel();
 		fondo = new ImageIcon(GUI_nueva.class.getResource("/img/"+miJuego.getMapa().getNivelActual().getGrafico())).getImage();
@@ -142,10 +148,9 @@ public class GUI_nueva extends JFrame {
 		}
 	}
 	
-	public void disparo() {
-		Proyectil proyectil = new Proyectil(jugador.getX(), jugador.getY(), jugador.getArma().getVelocidad(), jugador.getArma().getCargaDesinfeccion());
-		miJuego.getHilo().getProyectiles().add(proyectil);
-		panelJuego.add(proyectil);
+	public void disparo(Proyectil disparo) {
+		
+		panelJuego.add(disparo);
 		repaint();
 	}
 	

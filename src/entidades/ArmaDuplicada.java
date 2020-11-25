@@ -2,6 +2,6 @@ package entidades;
 
 public class ArmaDuplicada extends Arma {
 
-	public ArmaDuplicada() { velocidad = 6; cargaDesinfeccion = 30; }
+	public ArmaDuplicada() { velocidad = 6; cargaDesinfeccion = 40; }
 	
 }

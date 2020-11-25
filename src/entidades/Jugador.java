@@ -10,7 +10,7 @@ import logica.*;
 
 public class Jugador extends Entidad {
 
-	private int cargaViral;
+	private int cargaViral = 0;
 	private Arma miArma;
 	private boolean puedeDisparar;
 	
@@ -27,15 +27,21 @@ public class Jugador extends Entidad {
 		this.setIcon(jugadorIcon);
 	}
 	
-	public void disparar() {
+	public Proyectil disparar() {
+		Proyectil disparo = null;
 		if(puedeDisparar) {
 			puedeDisparar = false;
-			
+			disparo = new Proyectil(this.getX(), this.getY(), this.getArma().getVelocidad(), this.getArma().getCargaDesinfeccion());
 			
 			AutoAlgoritmo habilitar = new AutoAlgoritmo(new Disparo(), 1, this); // 1 segundo para habiltiar otro disparo.
 			habilitar.start();
 		}
+		return disparo;
 	}
+	
+	public void setCargaViral(int cargaViral) { this.cargaViral = cargaViral; }
+	
+	public int getCargaViral() { return cargaViral; }
 	
 	public Arma getArma() { return miArma; }
 	
@@ -58,6 +64,10 @@ public class Jugador extends Entidad {
 	
 	public void usarPremio(Premio p) {
 		
+	}
+	
+	public boolean accept(Visitor visit, int cargaViral) {
+		return visit.visit(this, cargaViral);
 	}
 	
 }

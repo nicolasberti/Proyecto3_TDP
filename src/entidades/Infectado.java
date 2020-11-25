@@ -4,13 +4,15 @@ import logica.Visitor;
 
 public abstract class Infectado extends Entidad {
 
-	protected int cargaViral = 100;
-	protected int rangoDeInfeccion;
-	protected boolean jugando;
-	protected int [] posInicial;
-	protected boolean congelado;
-	protected boolean desinfectado;
-	protected boolean girando;
+	protected int cargaViral = 100; // Vida del infectado
+	protected int danio;			// Daño que produce el infectado
+	protected int cargaDesinfeccion; // Número para hacer el cálculo de cuanto se puede desinfectar según el proyectil recibido
+	protected int rangoDeInfeccion; // Rango de infección del infectado
+	protected boolean jugando; // Representa si el infectado está jugando
+	protected int [] posInicial; // Posiciones iniciales del infectado
+	protected boolean congelado; // Representa si el infectado está congelado (no se mueve)
+	protected boolean girando; // Representa si el infectado está girando
+	
 	public void setJugando(boolean jugando) {
 		this.jugando = jugando;
 	}
@@ -36,6 +38,10 @@ public abstract class Infectado extends Entidad {
 			}
 	}
 	
+	public int getDanio() { return danio; }
+	
+	public int getCargaDesinfeccion() { return cargaDesinfeccion; }
+	
 	public int getCargaViral() { return cargaViral; }
 	
 	public void setCargaViral(int cargaViral) { this.cargaViral = cargaViral; }
@@ -44,7 +50,7 @@ public abstract class Infectado extends Entidad {
 	
 	
 	public boolean accept(Visitor visitor, int desinfeccion) {
-		return visitor.visit(this, desinfeccion);
+		return visitor.visit(this, desinfeccion/cargaDesinfeccion);
 	}
 	
 }

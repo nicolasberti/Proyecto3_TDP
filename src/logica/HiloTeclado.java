@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
 import entidades.Jugador;
+import entidades.Proyectil;
 import aplicacion.*;
 
 public class HiloTeclado extends Thread implements KeyListener {
@@ -45,8 +46,11 @@ public class HiloTeclado extends Thread implements KeyListener {
 				break;
 			}
 			case KeyEvent.VK_SPACE:{
-				jugador.disparar();
-				GUI.disparo();
+				Proyectil disparo = jugador.disparar();
+				if(disparo != null) {
+					GUI.disparo(disparo);
+					juego.getHilo().getProyectiles().add(disparo);
+				}
 				break;
 			}
 			}

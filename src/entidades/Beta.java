@@ -7,14 +7,17 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import aplicacion.GUI_nueva;
+import logica.Mapa;
 import logica.Visitor;
 
 public class Beta extends Infectado {
 
-	public Beta() {
+	public Beta(Mapa miMapa) {
 		Random rnd = new Random();
 		super.rangoDeInfeccion = 30;
-		super.posicion = new Posicion(rnd.nextInt(500), rnd.nextInt(100),rangoDeInfeccion);
+		super.cargaDesinfeccion = 2;
+		super.danio = 5;
+		super.posicion = new Posicion(rnd.nextInt(miMapa.getX()), rnd.nextInt(miMapa.getY()/100),rangoDeInfeccion);
 		super.velocidad = 1;
 		super.posInicial = new int[2];
 		super.posInicial[0] = posicion.getX();

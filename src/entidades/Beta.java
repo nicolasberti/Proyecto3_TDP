@@ -16,7 +16,7 @@ public class Beta extends Infectado {
 		Random rnd = new Random();
 		super.rangoDeInfeccion = 30;
 		super.cargaDesinfeccion = 2;
-		super.danio = 5;
+		super.danio = 2;
 		super.posicion = new Posicion(rnd.nextInt(miMapa.getX()), rnd.nextInt(miMapa.getY()/100),rangoDeInfeccion);
 		super.velocidad = 1;
 		super.posInicial = new int[2];

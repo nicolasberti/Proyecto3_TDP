@@ -16,7 +16,7 @@ public class Alpha extends Infectado {
 		Random rnd = new Random();
 		super.rangoDeInfeccion = 20;
 		super.cargaDesinfeccion = 4;
-		super.danio = 10;
+		super.danio = 4;
 		super.posicion = new Posicion(rnd.nextInt(miMapa.getX()), rnd.nextInt(miMapa.getY()/100),rangoDeInfeccion);
 		super.velocidad = 2;
 		super.posInicial = new int[2];

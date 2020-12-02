@@ -8,6 +8,7 @@ public abstract class Entidad extends JLabel {
 
 	protected int velocidad;
 	protected Posicion posicion;
+	protected boolean congelado = false;
 	
 	public int getVelocidad() { return velocidad; }
 	
@@ -20,6 +21,12 @@ public abstract class Entidad extends JLabel {
 		posicion.setX(x);
 		this.setBounds(x, posicion.getY(), this.getWidth(), this.getHeight());
 	}
+	
+	public boolean getCongelado() { return congelado; }
+	
+	public void congelar() { congelado = true; }
+	
+	public void descongelar() { congelado = false; }
 	
 	public int getX() { return posicion.getX(); }
 	

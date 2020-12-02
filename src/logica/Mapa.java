@@ -5,14 +5,26 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-public class Mapa extends JPanel {
+// El mapa hace uso del patrón Singleton.
 
+public final class Mapa{
+
+	private static Mapa mapa;
 	private Nivel nivelActual;
 	private List<Nivel> misNiveles;
 	private int x,y,lineaY;
 	
-	public Mapa(int x, int y, int lineaY, int niveles) {
-		super();
+	public static Mapa get() {
+		if(mapa == null) {
+			mapa = new Mapa();
+		} 
+		return mapa;
+	}
+	
+	private Mapa() { }
+	
+	// Fin patrón
+	public void crear(int x, int y, int lineaY, int niveles) {
 		nivelActual = null; // Cuando se comience el juego se establece el nivel
 		misNiveles = new ArrayList<Nivel>();
 		this.x = x;
@@ -25,7 +37,7 @@ public class Mapa extends JPanel {
 		 */
 		int infectados = 4;
 		for(int i = 0; i < niveles; i++) {
-			misNiveles.add(new Nivel(infectados, i, "nivel_"+ (i+1) +".png", this));
+			misNiveles.add(new Nivel(infectados, i, "nivel_"+ (i+1) +".png"));
 			infectados += 4;
 		}
 		

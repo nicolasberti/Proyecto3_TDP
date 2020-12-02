@@ -1,7 +1,5 @@
 package aplicacion;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,13 +14,21 @@ import javax.swing.border.EmptyBorder;
 import entidades.Infectado;
 import entidades.Jugador;
 import entidades.Proyectil;
+import logica.AutoAlgoritmo;
 import logica.AutoRemove;
+import logica.DescongelarTodos;
+import logica.Disparo;
 import logica.HiloTeclado;
 import logica.Juego;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.SystemColor;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
 
 public class GUI_nueva extends JFrame {
 
@@ -31,11 +37,15 @@ public class GUI_nueva extends JFrame {
 	private static int y = 500;
 	private static int lineaY = 470;
 	private Juego miJuego;
-	
+	private JLabel corazon;
+	private JPanel panelScore;
+	private JLabel linea;
+	private Jugador jugador;
+	private JButton botonEmpezar;
+	private Image fondo; // Mapa.
 	// Panel con imagen de fondo.
 	private PanelJuego panelJuego = new PanelJuego();
-	
-	public class PanelJuego extends JPanel{
+	private class PanelJuego extends JPanel{
 		public PanelJuego(){
 			super();
 		}
@@ -46,11 +56,9 @@ public class GUI_nueva extends JFrame {
 					super.paint(g);
 		}
 	}
+	private JPanel panelVida;
 	
-	private JLabel linea;
-	private Jugador jugador;
-	private JButton botonEmpezar;
-	private Image fondo; // Mapa.
+	
 	
 	/**
 	 * Launch the application.
@@ -73,13 +81,14 @@ public class GUI_nueva extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI_nueva() {
-		
+		setBackground(Color.WHITE);
 		this.setFocusable(true);
-		
-		miJuego = new Juego(x, y, lineaY, 3, this);
+		miJuego = Juego.get();
+		miJuego.crear(x, y, lineaY, 3, this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 637, 646);
 		panelPrincipal = new JPanel();
+		panelPrincipal.setBackground(Color.WHITE);
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
@@ -88,7 +97,8 @@ public class GUI_nueva extends JFrame {
 		panelPrincipal.add(panelJuego);
 		panelJuego.setLayout(null);
 		
-		JPanel panelScore = new JPanel();
+		panelScore = new JPanel();
+		panelScore.setBackground(Color.WHITE);
 		panelScore.setBounds(10, 522, 600, 74);
 		panelPrincipal.add(panelScore);
 		panelScore.setLayout(null);
@@ -98,6 +108,7 @@ public class GUI_nueva extends JFrame {
 		panelJuego.add(linea);
 		
 		botonEmpezar = new JButton("Empezar");
+		botonEmpezar.setBackground(SystemColor.inactiveCaption);
 		botonEmpezar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					empezarJuego();
@@ -106,10 +117,16 @@ public class GUI_nueva extends JFrame {
 		});
 		botonEmpezar.setBounds(501, 40, 89, 23);
 		panelScore.add(botonEmpezar);
+		
+		panelVida = new JPanel();
+		panelVida.setBounds(10, 11, 154, 52);
+		panelScore.add(panelVida);
+		panelVida.setLayout(new BoxLayout(panelVida, BoxLayout.X_AXIS));
+		
+		
 	}
 	
 	
-
 	public void empezarJuego() {
 		miJuego.empezar();
 		// Linea
@@ -123,22 +140,47 @@ public class GUI_nueva extends JFrame {
 		agregarJugador();
 		agregarInfectados(miJuego.getHilo().getInfectados());
 		this.addKeyListener(new HiloTeclado(this)); // Movimientos del jugador.
+		
+		this.cartel();
+		
+		
+		
 	}
 	
+	public void perder() {
+		JLabel cartel = new JLabel();
+		cartel.setBounds(x/2-120, y/2-120, 250, 250);
+		ImageIcon img = new ImageIcon(GUI_nueva.class.getResource("/img/gamerOver.gif"));
+		Icon icon = new ImageIcon(img.getImage().getScaledInstance(cartel.getWidth(), cartel.getHeight(), Image.SCALE_DEFAULT));
+		cartel.setIcon(icon);
+		panelJuego.add(cartel);
+	}
+	
+	public void cartel() {
+		JLabel go = new JLabel();
+		go.setBounds(x/2-120, y/2-120, 250, 250);
+		ImageIcon img = new ImageIcon(GUI_nueva.class.getResource("/img/go.gif"));
+		Icon icon = new ImageIcon(img.getImage().getScaledInstance(go.getWidth(), go.getHeight(), Image.SCALE_DEFAULT));
+		go.setIcon(icon);
+		panelJuego.add(go);
+		AutoRemove ar = new AutoRemove(go, panelJuego, 4);
+		ar.start();
+		miJuego.congelarTodos();
+		
+		AutoAlgoritmo habilitar = new AutoAlgoritmo(new DescongelarTodos(), 4, miJuego); 
+		habilitar.start();
+	}
 	private void agregarJugador() {
 		jugador = miJuego.getJugador();
 		panelJuego.add(jugador);
-	}
-	
-	public void crearExplosion(int x, int y) {
-		
 	}
 	
 	public void pasarNivel() {
 		miJuego.pasarNivel();
 		fondo = new ImageIcon(GUI_nueva.class.getResource("/img/"+miJuego.getMapa().getNivelActual().getGrafico())).getImage();
 		agregarInfectados(miJuego.getHilo().getInfectados());
-		repaint();
+		cartel();
+		repintar();
 	}
 	
 	public void agregarInfectados(List<Infectado> infectados) {
@@ -149,10 +191,16 @@ public class GUI_nueva extends JFrame {
 	}
 	
 	public void disparo(Proyectil disparo) {
-		
 		panelJuego.add(disparo);
-		repaint();
+		repintar();
 	}
+	
+	
+	public void repintar() {
+		this.repaint();
+	}
+	
+
 	
 	public JPanel getPanel() { return panelJuego; }
 	

@@ -10,7 +10,6 @@ public abstract class Infectado extends Entidad {
 	protected int rangoDeInfeccion; // Rango de infección del infectado
 	protected boolean jugando; // Representa si el infectado está jugando
 	protected int [] posInicial; // Posiciones iniciales del infectado
-	protected boolean congelado; // Representa si el infectado está congelado (no se mueve)
 	protected boolean girando; // Representa si el infectado está girando
 	
 	public void setJugando(boolean jugando) {
@@ -27,15 +26,17 @@ public abstract class Infectado extends Entidad {
 	
 	// Los infectados se mueven de arriba hacia abajo.
 	public void moverse() {
-		this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
-		if(!girando) {
-			girando = this.getX()>400;
-			this.setX(this.getX()+this.calculoAvanzar(this.getVelocidad()));
-			}
-		else {
-			girando = this.getX()>100;
-			this.setX(this.getX()-this.calculoAvanzar(this.getVelocidad()));
-			}
+		if(!congelado) {
+			this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
+			if(!girando) {
+				girando = this.getX()>400;
+				this.setX(this.getX()+this.calculoAvanzar(this.getVelocidad()));
+				}
+			else {
+				girando = this.getX()>100;
+				this.setX(this.getX()-this.calculoAvanzar(this.getVelocidad()));
+				}
+		}
 	}
 	
 	public int getDanio() { return danio; }
@@ -46,11 +47,10 @@ public abstract class Infectado extends Entidad {
 	
 	public void setCargaViral(int cargaViral) { this.cargaViral = cargaViral; }
 	
-	public void congelar() { }
 	
 	
-	public boolean accept(Visitor visitor, int desinfeccion) {
-		return visitor.visit(this, desinfeccion/cargaDesinfeccion);
+	public boolean accept(Visitor visitor) {
+		return visitor.visit(this);
 	}
 	
 }

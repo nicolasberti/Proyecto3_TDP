@@ -4,7 +4,7 @@ import entidades.*;
 
 public class Disparo extends Algoritmo {
 
-	public void ejecutar(Entidad entidad) {
-		((Jugador)entidad).puedeDisparar();
+	public void ejecutar(Object object) {
+		((Jugador)object).puedeDisparar();
 	}
 }

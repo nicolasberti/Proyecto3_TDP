@@ -13,7 +13,7 @@ public class Nivel {
 	private String grafico;
 	private int tandaActual; // Si tandaActual >= 3 es porque el nivel terminó.
 	
-	public Nivel(int infectados, int nivel, String grafico, Mapa miMapa) {
+	public Nivel(int infectados, int nivel, String grafico) {
 		this.infectados = infectados;
 		misInfectados = new ArrayList<Infectado>();
 		Random rnd = new Random();
@@ -21,10 +21,10 @@ public class Nivel {
 			int random = rnd.nextInt(2);
 			Infectado infectado;
 			if(random == 0) {
-				infectado = new Alpha(miMapa);
+				infectado = new Alpha();
 				
 			} else {
-				infectado = new Beta(miMapa);
+				infectado = new Beta();
 			}
 			if(i < infectados/2)
 				infectado.setJugando(true);

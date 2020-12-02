@@ -4,10 +4,15 @@ import entidades.*;
 
 public class VisitorInfectado extends Visitor {
 
+	private Infectado infectado;
+	
+	public VisitorInfectado(Infectado infectado) {
+		this.infectado = infectado;
+	}
 	@Override
-	public boolean visit(Jugador jugador, int cargaViral) {
+	public boolean visit(Jugador jugador) {
 		boolean esta = false;
-		jugador.setCargaViral( jugador.getCargaViral() + cargaViral);
+		jugador.setCargaViral( jugador.getCargaViral() + infectado.getDanio());
 		if(jugador.getCargaViral() >= 100) {
 			esta = true;
 		}
@@ -15,7 +20,7 @@ public class VisitorInfectado extends Visitor {
 	}
 
 	@Override
-	public boolean visit(Infectado infectado, int cargaViral) {
+	public boolean visit(Infectado infectado) {
 		// TODO Auto-generated method stub
 		return false;
 	}

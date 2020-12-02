@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -9,21 +10,30 @@ import entidades.*;
 
 public class Juego {
 
+	private static Juego juego;
 	private int nivelActual;
-	private Mapa miMapa; // La clase encargada de dar las ImageIcon es la clase "EntidadGrafica" con el metodo getGrafico();
+	private static Mapa miMapa;
 	private Jugador jugador;
 	private HiloMovimiento hilo;
 	private boolean jugando;
 	
-	/**
-	 * Creación del juego.
-	 * @param niveles Cantidad de niveles.
-	 */
-	public Juego(int x, int y, int lineaY, int niveles, JFrame frame) {
-		miMapa = new Mapa(x,y,lineaY,niveles);
+	public static Juego get() {
+		if(juego == null) {
+			juego = new Juego();
+			miMapa = Mapa.get();
+		} 
+		return juego;
+	}
+	
+	private Juego() { }
+	
+	// Fin patrón
+	
+	public void crear(int x, int y, int lineaY, int niveles, JFrame frame) {
+		miMapa.crear(x,y,lineaY,niveles);
 		nivelActual = 0;
-		jugador = new Jugador(3);
-		hilo = new  HiloMovimiento(this,((GUI_nueva)frame));
+		jugador = Jugador.get(3);
+		hilo = new HiloMovimiento(((GUI_nueva)frame));
 	}
 	
 	public void empezar() {
@@ -36,6 +46,48 @@ public class Juego {
 				hilo.getInfectados().add(infectado);
 		}
 		jugando = true;
+	}
+	
+	public void congelarTodos() {
+		List<Entidad> entidades = new ArrayList<Entidad>();
+		entidades.add(jugador);
+		// Agrega todos los infectados, premios, particulas y/o proyectiles para congelar.
+		for(Infectado infectado : hilo.getInfectados())
+			entidades.add(infectado);
+		for(Premio premio : hilo.getPremio())
+			entidades.add(premio);
+		for(Particula particula : hilo.getParticulas())
+			entidades.add(particula);
+		for(Proyectil proyectil : hilo.getProyectiles())
+			entidades.add(proyectil);
+		for(Entidad entidad : entidades)
+			entidad.congelar();
+	}
+	
+	public void descongelarTodos() {
+		List<Entidad> entidades = new ArrayList<Entidad>();
+		entidades.add(jugador);
+		// Agrega todos los infectados, premios, particulas y/o proyectiles para descongelar.
+		for(Infectado infectado : hilo.getInfectados())
+			entidades.add(infectado);
+		for(Premio premio : hilo.getPremio())
+			entidades.add(premio);
+		for(Particula particula : hilo.getParticulas())
+			entidades.add(particula);
+		for(Proyectil proyectil : hilo.getProyectiles())
+			entidades.add(proyectil);
+		for(Entidad entidad : entidades)
+			entidad.descongelar();
+	}
+	
+	public void congelarInfectados() {
+		for(Infectado infectado : hilo.getInfectados())
+			infectado.congelar();
+	}
+	
+	public void descongelarInfectados() {
+		for(Infectado infectado : hilo.getInfectados())
+			infectado.descongelar();
 	}
 	
 	public boolean getJugando() { return jugando; }
@@ -52,8 +104,12 @@ public class Juego {
 		}
 	}
 	
-	public List<Infectado> getInfectadosActuales(){
+	public List<Infectado> getInfectados(){
 		return miMapa.getNivelActual().getInfectados();
+	}
+	
+	public List<Infectado> getInfectadosJugando(){
+		return hilo.getInfectados();
 	}
 	
 	public Jugador getJugador() { 

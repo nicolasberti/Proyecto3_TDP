@@ -1,9 +1,7 @@
 package entidades;
 
 import javax.swing.JLabel;
-
-import logica.*;
-
+@SuppressWarnings("serial")
 public abstract class Entidad extends JLabel {
 
 	protected int velocidad;

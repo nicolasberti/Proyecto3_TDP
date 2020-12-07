@@ -5,15 +5,16 @@ import java.util.List;
 import java.util.Random;
 
 import entidades.*;
+import entidades.infectados.Alpha;
+import entidades.infectados.Beta;
 
 public class Nivel {
 
 	private int infectados;
 	private List<Infectado> misInfectados;
-	private String grafico;
 	private int tandaActual; // Si tandaActual >= 3 es porque el nivel terminó.
 	
-	public Nivel(int infectados, int nivel, String grafico) {
+	public Nivel(int infectados, int nivel) {
 		this.infectados = infectados;
 		misInfectados = new ArrayList<Infectado>();
 		Random rnd = new Random();
@@ -21,10 +22,10 @@ public class Nivel {
 			int random = rnd.nextInt(2);
 			Infectado infectado;
 			if(random == 0) {
-				infectado = new Alpha();
+				infectado = new Alpha(nivel);
 				
 			} else {
-				infectado = new Beta();
+				infectado = new Beta(nivel);
 			}
 			if(i < infectados/2)
 				infectado.setJugando(true);
@@ -32,7 +33,6 @@ public class Nivel {
 				infectado.setJugando(false);
 			misInfectados.add(infectado);
 		}
-		this.grafico = grafico; // nombre de la imagen del nivel
 		tandaActual = 1;
 	}
 	
@@ -58,10 +58,6 @@ public class Nivel {
 			cont++;
 		}
 		tandaActual = 2;
-	}
-	
-	public String getGrafico() {
-		return grafico;
 	}
 	
 }

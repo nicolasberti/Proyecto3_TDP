@@ -1,15 +1,11 @@
 package entidades;
 
 import java.awt.Image;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import GUI.GUI;
 
-import aplicacion.GUI_nueva;
-import logica.Juego;
-import logica.Mapa;
-import logica.Visitor;
-
+@SuppressWarnings("serial")
 public class Particula extends Entidad {
 
 	private int tiempoEnVida; // Segundos
@@ -23,7 +19,7 @@ public class Particula extends Entidad {
 		this.setBounds(posicion.getX(), posicion.getY(), 35, 35);
 		this.tiempoEnVida = 0;
 		// Agregar imagen de particula
-		ImageIcon image = new ImageIcon(GUI_nueva.class.getResource("/img/particula.png"));
+		ImageIcon image = new ImageIcon(GUI.class.getResource("/img/particula.png"));
 		Icon icon = new ImageIcon(image.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(icon);
 	}

@@ -1,7 +1,6 @@
 package entidades;
 
-import logica.Juego;
-
+@SuppressWarnings("serial")
 public abstract class Premio extends Entidad {
 	
 	protected boolean usado = false;

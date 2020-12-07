@@ -1,7 +1,5 @@
 package logica;
 
-import entidades.Entidad;
-
 public class AutoAlgoritmo extends Thread {
 
 	private Algoritmo algoritmo;

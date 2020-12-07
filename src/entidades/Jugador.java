@@ -5,9 +5,12 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import aplicacion.*;
+import GUI.*;
+import entidades.armas.ArmaComun;
 import logica.*;
+import logica.algoritmos.Disparo;
 
+@SuppressWarnings("serial")
 public class Jugador extends Entidad {
 
 	/*
@@ -32,7 +35,7 @@ public class Jugador extends Entidad {
 		this.miArma = new ArmaComun();
 		this.puedeDisparar = true;
 		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
-		ImageIcon image = new ImageIcon(GUI_nueva.class.getResource("/img/jugador.gif"));
+		ImageIcon image = new ImageIcon(GUI.class.getResource("/img/jugador.gif"));
 		Icon icon = new ImageIcon(image.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(icon);
 	}

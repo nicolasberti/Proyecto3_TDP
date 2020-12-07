@@ -3,8 +3,6 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
-
 // El mapa hace uso del patrón Singleton.
 
 public final class Mapa{
@@ -37,7 +35,7 @@ public final class Mapa{
 		 */
 		int infectados = 4;
 		for(int i = 0; i < niveles; i++) {
-			misNiveles.add(new Nivel(infectados, i, "nivel_"+ (i+1) +".png"));
+			misNiveles.add(new Nivel(infectados, i+1));
 			infectados += 4;
 		}
 		

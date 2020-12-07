@@ -5,17 +5,20 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import aplicacion.GUI_nueva;
+import GUI.GUI;
 import entidades.*;
+import logica.algoritmos.DescongelarTodos;
+import logica.hilos.HiloMovimiento;
 
 public class Juego {
 
 	private static Juego juego;
-	private int nivelActual;
 	private static Mapa miMapa;
+	private int nivelActual;
 	private Jugador jugador;
 	private HiloMovimiento hilo;
 	private boolean jugando;
+	private int desinfectados;
 	
 	public static Juego get() {
 		if(juego == null) {
@@ -33,7 +36,7 @@ public class Juego {
 		miMapa.crear(x,y,lineaY,niveles);
 		nivelActual = 0;
 		jugador = Jugador.get(3);
-		hilo = new HiloMovimiento(((GUI_nueva)frame));
+		hilo = new HiloMovimiento(((GUI)frame));
 	}
 	
 	public void empezar() {
@@ -46,6 +49,10 @@ public class Juego {
 				hilo.getInfectados().add(infectado);
 		}
 		jugando = true;
+		
+		this.congelarTodos();
+		AutoAlgoritmo habilitar = new AutoAlgoritmo(new DescongelarTodos(), 4, this); 
+		habilitar.start();
 	}
 	
 	public void congelarTodos() {
@@ -102,6 +109,9 @@ public class Juego {
 			if(infectado.getJugando())
 				hilo.getInfectados().add(infectado);
 		}
+		this.congelarTodos();
+		AutoAlgoritmo habilitar = new AutoAlgoritmo(new DescongelarTodos(), 4, this); 
+		habilitar.start();
 	}
 	
 	public List<Infectado> getInfectados(){
@@ -116,6 +126,10 @@ public class Juego {
 		return jugador;
 	}
 	
+	public int getTandaActual() {
+		return miMapa.getNivelActual().getTandaActual();
+	}
+	
 	public void pasarNivel() {
 		nivelActual++;
 		if(nivelActual-1 < miMapa.getNiveles().size()) {
@@ -125,7 +139,17 @@ public class Juego {
 					hilo.getInfectados().add(infectado);
 			}
 		}
-		
+		this.congelarTodos();
+		AutoAlgoritmo habilitar = new AutoAlgoritmo(new DescongelarTodos(), 4, this); 
+		habilitar.start();
+	}
+	
+	public void addDesinfectado() {
+		desinfectados++;
+	}
+	
+	public int getDesinfectadosTotales() {
+		return desinfectados;
 	}
 	
 	public boolean getUltimoNivel() {

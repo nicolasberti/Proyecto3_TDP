@@ -30,7 +30,7 @@ public class Jugador extends Entidad {
 	
 	private Jugador(int velocidad) {
 		// Cordenadas preterminadas
-		super.posicion = new Posicion(250,400,20);
+		super.posicion = new Posicion(Juego.get().getMapa().getX()/2 - 30,Juego.get().getMapa().getLinea()-40,20);
 		super.velocidad = velocidad;
 		this.miArma = new ArmaComun();
 		this.puedeDisparar = true;

@@ -28,7 +28,6 @@ public final class Mapa{
 		this.x = x;
 		this.y = y;
 		this.lineaY = lineaY;
-		
 		/*
 		 * Creación de niveles.
 		 * Patrón para los infectados: cada nivel se incrementan 4 infectados.

@@ -101,11 +101,11 @@ public class GUI extends JFrame {
 		panelScore.setBounds(10, 522, 600, 74);
 		panelPrincipal.add(panelScore);
 		panelScore.setLayout(null);
-		
+		/*
 		linea = new JLabel("");
 		linea.setBounds(0, lineaY, 600, 7);
 		panelJuego.add(linea);
-		
+		*/
 		botonEmpezar = new JButton("Empezar");
 		botonEmpezar.setBackground(SystemColor.inactiveCaption);
 		botonEmpezar.addActionListener(new ActionListener() {
@@ -160,9 +160,9 @@ public class GUI extends JFrame {
 	public void empezarJuego() {
 		miJuego.empezar();
 		// Linea
-		Image lineaImg = new ImageIcon(GUI.class.getResource("/img/linea.png")).getImage();
+	/*	Image lineaImg = new ImageIcon(GUI.class.getResource("/img/linea.png")).getImage();
 		ImageIcon lineaImg2 =new ImageIcon(lineaImg.getScaledInstance(x, y, Image.SCALE_SMOOTH));
-		linea.setIcon(lineaImg2);
+		linea.setIcon(lineaImg2);*/
 		// Mapa
 		fondo = new ImageIcon(GUI.class.getResource("/img/niveles/nivel_"+miJuego.getNivelActual()+".png")).getImage();
 		jugador = miJuego.getJugador();

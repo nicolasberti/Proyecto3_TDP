@@ -2,8 +2,13 @@ package entidades;
 
 import java.awt.Image;
 import java.io.File;
+import java.util.Random;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
+import logica.Juego;
+import logica.Mapa;
 import logica.Visitor;
 
 @SuppressWarnings("serial")
@@ -77,6 +82,15 @@ public abstract class Infectado extends Entidad {
 	
 	public boolean accept(Visitor visitor) {
 		return visitor.visit(this);
+	}
+	
+	public int[] generarCordenadas() {
+		Random rnd = new Random();
+		Mapa mapa = Juego.get().getMapa();
+		int cordenadas[] = new int[2];
+		cordenadas[0] = rnd.nextInt(mapa.getX()-20);
+		cordenadas[1] = rnd.nextInt(mapa.getY()/100);
+		return cordenadas;
 	}
 	
 }

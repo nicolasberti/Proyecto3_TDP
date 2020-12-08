@@ -6,6 +6,7 @@ public class AutoAlgoritmo extends Thread {
 	private int segundos;
 	private Object object; // Lo más abstracto posible
 	
+	// Esta clase se utiliza para ejecutar en cierto tiempo un X algoritmo.
 	public AutoAlgoritmo(Algoritmo algoritmo, int segundos, Object object) {
 		this.algoritmo = algoritmo;
 		this.segundos = segundos;

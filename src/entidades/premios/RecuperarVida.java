@@ -1,12 +1,8 @@
 package entidades.premios;
 
 import java.awt.Image;
-import java.util.Random;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
-import GUI.GUI;
 import entidades.Jugador;
 import entidades.Posicion;
 import logica.*;
@@ -14,11 +10,10 @@ import logica.*;
 public class RecuperarVida extends ObjetoPreciso {
 
 	public RecuperarVida(int x, int y) {
-		Random rnd = new Random();
-		super.posicion = new Posicion(rnd.nextInt(x), rnd.nextInt(y),15);
+		super.posicion = new Posicion(x,y,30);
 		super.velocidad = 4;
-		this.setBounds(posicion.getX(), posicion.getY(), 35, 35);
-		ImageIcon image = new ImageIcon(GUI.class.getResource("/img/pocion.png"));
+		this.setBounds(posicion.getX(), posicion.getY(), 30, 40);
+		ImageIcon image = new ImageIcon(this.getClass().getResource("/img/pocion.png"));
 		Icon icon = new ImageIcon(image.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(icon);
 	}

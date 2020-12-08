@@ -2,7 +2,6 @@ package logica.hilos;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import GUI.*;
 import entidades.Jugador;
 import entidades.Proyectil;
@@ -10,9 +9,9 @@ import logica.Juego;
 
 public class HiloTeclado extends Thread implements KeyListener {
 
-	public GUI GUI;
+	public GUI_juego GUI;
 	
-	public HiloTeclado(GUI GUI) {
+	public HiloTeclado(GUI_juego GUI) {
 		super();
 		this.GUI = GUI;
 	}
@@ -26,32 +25,31 @@ public class HiloTeclado extends Thread implements KeyListener {
 		Juego juego = Juego.get();
 		if(juego.getJugando() == true) {
 			Jugador jugador = juego.getJugador();
-			
 			switch(e.getKeyCode()) {
-			case KeyEvent.VK_LEFT: {
-				if(jugador.getX() >= 10) {
-					jugador.moverIzquierda();
-					if(jugador.getX() <= 10)
-						jugador.setX(10); 
+				case KeyEvent.VK_LEFT: {
+					if(jugador.getX() >= 10) {
+						jugador.moverIzquierda();
+						if(jugador.getX() <= 10)
+							jugador.setX(10); 
+					}
+					break;
 				}
-				break;
-			}
-			case KeyEvent.VK_RIGHT: {
-				if(jugador.getX() <= juego.getMapa().getX()-70) {
-					jugador.moverDerecha();
-					if(jugador.getX() >= juego.getMapa().getX()-70)
-						jugador.setX(juego.getMapa().getX()-70);
+				case KeyEvent.VK_RIGHT: {
+					if(jugador.getX() <= juego.getMapa().getX()-70) {
+						jugador.moverDerecha();
+						if(jugador.getX() >= juego.getMapa().getX()-70)
+							jugador.setX(juego.getMapa().getX()-70);
+					}
+					break;
 				}
-				break;
-			}
-			case KeyEvent.VK_SPACE:{
-				Proyectil disparo = jugador.disparar();
-				if(disparo != null) {
-					GUI.disparo(disparo);
-					juego.getHilo().getProyectiles().add(disparo);
+				case KeyEvent.VK_SPACE:{
+					Proyectil disparo = jugador.disparar();
+					if(disparo != null) {
+						GUI.disparo(disparo);
+						juego.getHilo().getProyectiles().add(disparo);
+					}
+					break;
 				}
-				break;
-			}
 			}
 			GUI.repintar();
 		}

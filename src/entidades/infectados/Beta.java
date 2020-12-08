@@ -17,7 +17,7 @@ public class Beta extends Infectado {
 		super.posInicial[0] = posicion.getX();
 		super.posInicial[1] = posicion.getY();
 		super.girando = false;
-		this.setBounds(posicion.getX(), posicion.getY(), 50, 50);
+		this.setBounds(posicion.getX(), posicion.getY(), 50, 65);
 		actualizarImagen();
 	}
 

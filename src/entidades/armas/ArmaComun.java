@@ -3,7 +3,9 @@ package entidades.armas;
 import entidades.Arma;
 
 public class ArmaComun extends Arma {
-
-	public ArmaComun() { velocidad = 6; cargaDesinfeccion = 20; }
 	
+	public ArmaComun() {
+		velocidad = 5;
+		cargaDesinfeccion = 20;
+	}
 }

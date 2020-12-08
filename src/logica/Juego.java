@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import GUI.GUI;
+import GUI.GUI_juego;
 import entidades.*;
 import logica.algoritmos.DescongelarTodos;
 import logica.hilos.HiloMovimiento;
@@ -36,7 +36,7 @@ public class Juego {
 		miMapa.crear(x,y,lineaY,niveles);
 		nivelActual = 0;
 		jugador = Jugador.get(3);
-		hilo = new HiloMovimiento(((GUI)frame));
+		hilo = new HiloMovimiento(((GUI_juego)frame));
 	}
 	
 	public void empezar() {
@@ -112,14 +112,6 @@ public class Juego {
 		this.congelarTodos();
 		AutoAlgoritmo habilitar = new AutoAlgoritmo(new DescongelarTodos(), 4, this); 
 		habilitar.start();
-	}
-	
-	public List<Infectado> getInfectados(){
-		return miMapa.getNivelActual().getInfectados();
-	}
-	
-	public List<Infectado> getInfectadosJugando(){
-		return hilo.getInfectados();
 	}
 	
 	public Jugador getJugador() { 

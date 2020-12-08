@@ -10,6 +10,7 @@ public class VisitorInfectado extends Visitor {
 	public VisitorInfectado(Infectado infectado) {
 		this.infectado = infectado;
 	}
+	
 	@Override
 	public boolean visit(Jugador jugador) {
 		boolean esta = false;

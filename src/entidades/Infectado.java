@@ -2,6 +2,7 @@ package entidades;
 
 import java.awt.Image;
 import java.io.File;
+import java.net.URL;
 import java.util.Random;
 
 import javax.swing.Icon;
@@ -22,7 +23,6 @@ public abstract class Infectado extends Entidad {
 	protected int [] posInicial; // Posiciones iniciales del infectado
 	protected boolean girando; // Representa si el infectado está girando
 	protected int nivel; // Indica de que nivel es el infectado.
-	protected int imagenActual; // Índice de la imagen actual
 	
 	public void setJugando(boolean jugando) {
 		this.jugando = jugando;
@@ -38,6 +38,7 @@ public abstract class Infectado extends Entidad {
 	
 	// Los infectados se mueven de arriba hacia abajo.
 	public void moverse() {
+		boolean actualizarImagen = girando;
 		if(!congelado) {
 			this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
 			if(!girando) {
@@ -47,8 +48,9 @@ public abstract class Infectado extends Entidad {
 			else {
 				girando = this.getX()>100;
 				this.setX(this.getX()-this.calculoAvanzar(this.getVelocidad()));
-				}
-			this.actualizarImagen();
+			}
+			if(actualizarImagen != girando)
+				this.actualizarImagen();
 		}
 	}
 	
@@ -62,19 +64,11 @@ public abstract class Infectado extends Entidad {
 	
 	public void actualizarImagen() {
 		String infectadoTipo = this.getClass().toString().substring(this.getClass().toString().lastIndexOf('.')+1);
-		String rutaOrigen = System.getProperty("user.dir")+"\\src\\img\\infectados\\nivel"+nivel+"\\"+infectadoTipo;
-		int cantArchivos = new File(rutaOrigen).listFiles().length;
-		//cantArchivos = cantArchivos/2; 
-		if(imagenActual == cantArchivos-1)
-			imagenActual = 0;
+		ImageIcon image;
+		if(girando)
+			 image = new ImageIcon(this.getClass().getResource("/img/infectados/nivel"+nivel+"/"+infectadoTipo+".gif"));
 		else
-			imagenActual++;
-		ImageIcon image = new ImageIcon(rutaOrigen+"\\"+imagenActual+".png");
-		/*if(!girando)
-			ImageIcon image = new ImageIcon(rutaOrigen+"\\"+imagenActual+".png");
-		else
-			ImageIcon image = new ImageIcon(rutaOrigen+"\\"+imagenActual+"GIRANDO.png");
-			*/
+			 image = new ImageIcon(this.getClass().getResource("/img/infectados/nivel"+nivel+"/"+infectadoTipo+"Rotado.gif"));
 		Icon icon = new ImageIcon(image.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(icon);
 	}

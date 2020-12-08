@@ -23,17 +23,17 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.SystemColor;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
-public class GUI extends JFrame {
+public class GUI_juego extends JFrame {
 
 	private JPanel panelPrincipal;
 	private static int x = 600;
 	private static int y = 500;
 	private static int lineaY = 470;
-	private Juego miJuego;
-	private JLabel corazon;
-	private JPanel panelScore;
-	private JLabel linea;
+	private Juego miJuego; 
+	private JPanel panelScore; 
 	private Jugador jugador;
 	private JButton botonEmpezar;
 	private Image fondo; // Mapa.
@@ -57,6 +57,7 @@ public class GUI extends JFrame {
 	private JLabel vida_3;
 	private JLabel desinfectados;
 	private JLabel nivelActual;
+	private JLabel cargaViralJ;
 	
 	
 	/**
@@ -66,7 +67,7 @@ public class GUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI frame = new GUI();
+					GUI_juego frame = new GUI_juego();
 					frame.setVisible(true);
 					frame.setResizable(false); // No deja agrandar ni achicar el frame.
 				} catch (Exception e) {
@@ -79,7 +80,7 @@ public class GUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUI() {
+	public GUI_juego() {
 		setBackground(Color.WHITE);
 		this.setFocusable(true);
 		miJuego = Juego.get();
@@ -101,11 +102,7 @@ public class GUI extends JFrame {
 		panelScore.setBounds(10, 522, 600, 74);
 		panelPrincipal.add(panelScore);
 		panelScore.setLayout(null);
-		/*
-		linea = new JLabel("");
-		linea.setBounds(0, lineaY, 600, 7);
-		panelJuego.add(linea);
-		*/
+
 		botonEmpezar = new JButton("Empezar");
 		botonEmpezar.setBackground(SystemColor.inactiveCaption);
 		botonEmpezar.addActionListener(new ActionListener() {
@@ -119,7 +116,7 @@ public class GUI extends JFrame {
 		
 		vida_0 = new JLabel("");
 		vida_0.setBounds(10, 11, 52, 52);
-		ImageIcon image = new ImageIcon(GUI.class.getResource("/img/heart.gif"));
+		ImageIcon image = new ImageIcon(GUI_juego.class.getResource("/img/heart.gif"));
 		Icon icon = new ImageIcon(image.getImage().getScaledInstance(vida_0.getWidth(), vida_0.getHeight(), Image.SCALE_DEFAULT));
 		vida_0.setIcon(icon);
 		panelScore.add(vida_0);
@@ -152,19 +149,35 @@ public class GUI extends JFrame {
 		nivelActual = new JLabel("Nivel actual: 9999 - Primer tanda");
 		nivelActual.setBounds(304, 32, 286, 14);
 		panelScore.add(nivelActual);
+		
+		 cargaViralJ = new JLabel("Carga viral: 0%");
+		cargaViralJ.setBounds(458, 11, 257, 14);
+		panelScore.add(cargaViralJ);
+		
+		
+		
 		nivelActual.setVisible(false);
+		cargaViralJ.setVisible(false);
 		
 	}
 	
+	// Noficaciones
 	
+	public void notificacion(String texto) {
+		JLabel notificaciones = new JLabel(texto);
+		notificaciones.setFont(new Font("Tahoma", Font.BOLD, 12));
+		notificaciones.setVerticalAlignment(SwingConstants.BOTTOM);
+		notificaciones.setBounds(306, 51, 276, 14);
+		panelScore.add(notificaciones);
+		AutoRemove ar = new AutoRemove(notificaciones, panelScore, 2);
+		ar.start();
+	}
+	
+	// Comenzar el juego
 	public void empezarJuego() {
 		miJuego.empezar();
-		// Linea
-	/*	Image lineaImg = new ImageIcon(GUI.class.getResource("/img/linea.png")).getImage();
-		ImageIcon lineaImg2 =new ImageIcon(lineaImg.getScaledInstance(x, y, Image.SCALE_SMOOTH));
-		linea.setIcon(lineaImg2);*/
 		// Mapa
-		fondo = new ImageIcon(GUI.class.getResource("/img/niveles/nivel_"+miJuego.getNivelActual()+".png")).getImage();
+		fondo = new ImageIcon(GUI_juego.class.getResource("/img/niveles/nivel_"+miJuego.getNivelActual()+".png")).getImage();
 		jugador = miJuego.getJugador();
 		agregarJugador();
 		agregarInfectados(miJuego.getHilo().getInfectados());
@@ -174,31 +187,34 @@ public class GUI extends JFrame {
 		this.actualizarScore();
 		desinfectados.setVisible(true);
 		nivelActual.setVisible(true);
-		
+		cargaViralJ.setVisible(true);
 	}
 	
+	// Carteles
 	public void ganar() {
 		JLabel cartel = new JLabel();
-		cartel.setBounds(x/2-120, y/2-160, 200, 200);
-		ImageIcon img = new ImageIcon(GUI.class.getResource("/img/juegoGanado.gif"));
+		cartel.setBounds((x/2)-140, (y/2)-150, 400, 200);
+		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/juegoGanado.gif"));
 		Icon icon = new ImageIcon(img.getImage().getScaledInstance(cartel.getWidth(), cartel.getHeight(), Image.SCALE_DEFAULT));
 		cartel.setIcon(icon);
 		panelJuego.add(cartel);
+		this.repintar();
 	}
 	
 	public void perder() {
 		JLabel cartel = new JLabel();
-		cartel.setBounds(x/2-120, y/2-140, 200, 200);
-		ImageIcon img = new ImageIcon(GUI.class.getResource("/img/gameover.gif"));
+		cartel.setBounds(x/2-140, y/2-150, 300, 400);
+		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/gameover.gif"));
 		Icon icon = new ImageIcon(img.getImage().getScaledInstance(cartel.getWidth(), cartel.getHeight(), Image.SCALE_DEFAULT));
 		cartel.setIcon(icon);
 		panelJuego.add(cartel);
+		this.repintar();
 	}
 	
 	public void segundaTanda() {
 		JLabel go = new JLabel();
 		go.setBounds((x/2-120)-70, (y/2-120)-140, 400, 250);
-		ImageIcon img = new ImageIcon(GUI.class.getResource("/img/segundaTanda.png"));
+		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/segundaTanda.png"));
 		Icon icon = new ImageIcon(img.getImage().getScaledInstance(go.getWidth(), go.getHeight(), Image.SCALE_DEFAULT));
 		go.setIcon(icon);
 		panelJuego.add(go);
@@ -206,17 +222,17 @@ public class GUI extends JFrame {
 		ar.start();
 		this.cartel();
 	}
+	
 	public void cartel() {
 		JLabel go = new JLabel();
 		go.setBounds(x/2-120, y/2-120, 250, 250);
-		ImageIcon img = new ImageIcon(GUI.class.getResource("/img/go.gif"));
+		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/go.gif"));
 		Icon icon = new ImageIcon(img.getImage().getScaledInstance(go.getWidth(), go.getHeight(), Image.SCALE_DEFAULT));
 		go.setIcon(icon);
 		panelJuego.add(go);
 		AutoRemove ar = new AutoRemove(go, panelJuego, 4);
 		ar.start();
-		
-		
+		this.repintar();
 	}
 	private void agregarJugador() {
 		jugador = miJuego.getJugador();
@@ -225,9 +241,10 @@ public class GUI extends JFrame {
 	
 	public void pasarNivel() {
 		miJuego.pasarNivel();
-		fondo = new ImageIcon(GUI.class.getResource("/img/niveles/nivel_"+miJuego.getNivelActual()+".png")).getImage();
+		fondo = new ImageIcon(GUI_juego.class.getResource("/img/niveles/nivel_"+miJuego.getNivelActual()+".png")).getImage();
 		agregarInfectados(miJuego.getHilo().getInfectados());
 		cartel();
+		this.notificacion("¡Has pasado un nivel!");
 		repintar();
 	}
 	
@@ -245,7 +262,7 @@ public class GUI extends JFrame {
 	public void crearExplosion(int x, int y) {
 		JLabel explosion = new JLabel();
 		explosion.setBounds(x, y, 40, 40);
-		ImageIcon img = new ImageIcon(GUI.class.getResource("/img/boom.gif"));
+		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/boom.gif"));
 		Icon icon = new ImageIcon(img.getImage().getScaledInstance(explosion.getWidth(), explosion.getHeight(), Image.SCALE_DEFAULT));
 		explosion.setIcon(icon);
 		this.autoRemover(explosion, 1);
@@ -279,12 +296,13 @@ public class GUI extends JFrame {
 			nivelActual.setText("Nivel actual: "+miJuego.getNivelActual()+" | Primer tanda");
 		else
 			nivelActual.setText("Nivel actual: "+miJuego.getNivelActual()+" | Segunda tanda");
+		cargaViralJ.setText("Carga viral: "+miJuego.getJugador().getCargaViral()+"%");
 	}
 	
 	private void actualizarVida(int vida) {
 		exVida = vida;
 		if(vida <= 0) {
-			ImageIcon image = new ImageIcon(GUI.class.getResource("/img/heartGreen.gif"));
+			ImageIcon image = new ImageIcon(GUI_juego.class.getResource("/img/heartGreen.gif"));
 			Icon icon = new ImageIcon(image.getImage().getScaledInstance(vida_0.getWidth(), vida_0.getHeight(), Image.SCALE_DEFAULT));
 			vida_0.setIcon(icon);
 			vida_1.setIcon(icon);
@@ -316,5 +334,4 @@ public class GUI extends JFrame {
 			vida_3.setVisible(true);
 		}
 	}
-	
 }

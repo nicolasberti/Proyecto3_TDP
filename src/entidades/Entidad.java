@@ -20,6 +20,8 @@ public abstract class Entidad extends JLabel {
 		this.setBounds(x, posicion.getY(), this.getWidth(), this.getHeight());
 	}
 	
+	public abstract void moverse();
+	
 	public boolean getCongelado() { return congelado; }
 	
 	public void congelar() { congelado = true; }

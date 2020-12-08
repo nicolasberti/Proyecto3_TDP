@@ -35,7 +35,7 @@ public class Jugador extends Entidad {
 		this.miArma = new ArmaComun();
 		this.puedeDisparar = true;
 		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
-		ImageIcon image = new ImageIcon(GUI.class.getResource("/img/jugador.gif"));
+		ImageIcon image = new ImageIcon(GUI_juego.class.getResource("/img/jugador.gif"));
 		Icon icon = new ImageIcon(image.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(icon);
 	}
@@ -51,7 +51,11 @@ public class Jugador extends Entidad {
 		return disparo;
 	}
 	
-	public void setCargaViral(int cargaViral) { this.cargaViral = cargaViral; }
+	public void setCargaViral(int cargaViral) {
+		this.cargaViral = cargaViral;
+		if(this.cargaViral > 100)
+			this.cargaViral = 100;
+	}
 	
 	public int getCargaViral() { return cargaViral; }
 	
@@ -65,6 +69,9 @@ public class Jugador extends Entidad {
 	public void usarEfecto(int indice) {
 		
 	}
+	
+	// El movimiento del jugador se hace de derecha o de izquierda.
+	public void moverse() { } 
 	
 	public void moverDerecha() {
 		if(!congelado)

@@ -3,7 +3,7 @@ package entidades;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import GUI.GUI;
+import GUI.GUI_juego;
 
 @SuppressWarnings("serial")
 public class Proyectil extends Entidad {
@@ -15,8 +15,8 @@ public class Proyectil extends Entidad {
 		super.posicion = new Posicion(x,y,20);
 		super.velocidad = velocidad; // Velocidad según el arma que la dispara
 		this.cargaDesinfeccion = cargaDesinfeccion;
-		this.setBounds(posicion.getX(), posicion.getY(), 70, 70);
-		ImageIcon image = new ImageIcon(GUI.class.getResource("/img/disparo.png"));
+		this.setBounds(posicion.getX(), posicion.getY(), 30, 65);
+		ImageIcon image = new ImageIcon(GUI_juego.class.getResource("/img/disparo.png"));
 		Icon icon = new ImageIcon(image.getImage().getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_DEFAULT));
 		this.setIcon(icon);
 	}

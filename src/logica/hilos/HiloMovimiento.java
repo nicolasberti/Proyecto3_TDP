@@ -20,11 +20,11 @@ public class HiloMovimiento extends Thread {
 	private List<Premio> premios;
 	private List<Proyectil> proyectiles;
 	private List<Particula> particulas;
-	private GUI frame;
+	private GUI_juego frame;
 	private boolean jugando = false;
 	
 	
-	public HiloMovimiento(GUI frame) {
+	public HiloMovimiento(GUI_juego frame) {
 		this.infectados = new ArrayList<Infectado>();
 		this.premios =  new ArrayList<Premio>();
 		this.proyectiles =  new ArrayList<Proyectil>();
@@ -67,7 +67,7 @@ public class HiloMovimiento extends Thread {
 							infectado.volverPos();
 						} else {
 							infectado.moverse();
-							infectado.actualizarImagen();
+							
 						}
 						
 						
@@ -185,6 +185,7 @@ public class HiloMovimiento extends Thread {
 						if(jugador.estaEnElRadio(premio)) {
 							removerPremios.add(premio);
 							Juego.get().getJugador().usarPremio(premio);
+							frame.notificacion("¡Has utilizado un premio!");
 						}
 					}
 					removerPremios(removerPremios);

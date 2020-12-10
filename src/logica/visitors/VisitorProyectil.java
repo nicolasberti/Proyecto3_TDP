@@ -37,8 +37,11 @@ public class VisitorProyectil extends Visitor {
 			frame.crearExplosion(proyectil.getX(), proyectil.getY());
 			if(esta) {
 				Juego.get().addDesinfectado();
-				Premio premio = this.premioRandom(infectado.getX(), infectado.getY());
-				Juego.get().getHilo().add(premio);
+				Random rnd = new Random();
+				if(rnd.nextBoolean()) {
+					Premio premio = this.premioRandom(infectado.getX(), infectado.getY());
+					Juego.get().getHilo().add(premio);
+				}
 				Juego.get().getHilo().remover(infectado);
 			}
 			Juego.get().getHilo().remover(proyectil);

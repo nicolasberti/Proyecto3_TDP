@@ -13,7 +13,6 @@ import javax.swing.border.EmptyBorder;
 
 import entidades.Infectado;
 import entidades.Jugador;
-import entidades.Proyectil;
 import logica.Juego;
 import logica.hilos.HiloTeclado;
 
@@ -175,11 +174,12 @@ public class GUI_juego extends JFrame {
 	
 	// Comenzar el juego
 	public void empezarJuego() {
+		agregarJugador();
 		miJuego.empezar();
 		// Mapa
 		fondo = new ImageIcon(GUI_juego.class.getResource("/img/niveles/nivel_"+miJuego.getNivelActual()+".png")).getImage();
 		jugador = miJuego.getJugador();
-		agregarJugador();
+		
 		agregarInfectados(miJuego.getInfectadosActuales());
 		this.addKeyListener(new HiloTeclado(this)); // Movimientos del jugador.
 		// Panel score
@@ -193,8 +193,8 @@ public class GUI_juego extends JFrame {
 	// Carteles
 	public void ganar() {
 		JLabel cartel = new JLabel();
-		cartel.setBounds((x/2)-140, (y/2)-150, 400, 200);
-		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/juegoGanado.gif"));
+		cartel.setBounds(x/2-140, y/2-150, 300, 400);
+		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/juegoGanado.png"));
 		Icon icon = new ImageIcon(img.getImage().getScaledInstance(cartel.getWidth(), cartel.getHeight(), Image.SCALE_DEFAULT));
 		cartel.setIcon(icon);
 		panelJuego.add(cartel);
@@ -213,7 +213,7 @@ public class GUI_juego extends JFrame {
 	
 	public void segundaTanda() {
 		JLabel go = new JLabel();
-		go.setBounds((x/2-120)-70, (y/2-120)-140, 400, 250);
+		go.setBounds((x/2-120)-70, (y/2-120)-190, 400, 220);
 		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/segundaTanda.png"));
 		Icon icon = new ImageIcon(img.getImage().getScaledInstance(go.getWidth(), go.getHeight(), Image.SCALE_DEFAULT));
 		go.setIcon(icon);
@@ -226,7 +226,7 @@ public class GUI_juego extends JFrame {
 	public void cartel() {
 		JLabel go = new JLabel();
 		go.setBounds(x/2-120, y/2-120, 250, 250);
-		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/go.gif"));
+		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/inicio.png"));
 		Icon icon = new ImageIcon(img.getImage().getScaledInstance(go.getWidth(), go.getHeight(), Image.SCALE_DEFAULT));
 		go.setIcon(icon);
 		panelJuego.add(go);

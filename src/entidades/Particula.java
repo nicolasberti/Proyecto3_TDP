@@ -14,7 +14,7 @@ public class Particula extends Entidad {
 	public Particula(int danio, int x, int y, int velocidad) {
 		this.danio = danio;
 		// OBS: Si bien la particula se desplaza en forma vertical (es decir, solo avanza en una dirección) puede infectar en una cierta circunferencia.
-		super.posicion = new Posicion(x,y,20);
+		super.posicion = new Posicion(x,y,30);
 		super.velocidad = velocidad;
 		this.setBounds(posicion.getX(), posicion.getY(), 35, 35);
 		this.tiempoEnVida = 0;

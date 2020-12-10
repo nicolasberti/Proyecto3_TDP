@@ -34,6 +34,7 @@ public abstract class Infectado extends Entidad {
 		posicion.setX(posInicial[0]);
 		posicion.setY(posInicial[1]);
 		girando = false;
+		this.actualizarImagen();
 	}
 	
 	// Los infectados se mueven de arriba hacia abajo.
@@ -44,13 +45,16 @@ public abstract class Infectado extends Entidad {
 			if(!girando) {
 				girando = this.getX()>400;
 				this.setX(this.getX()+this.calculoAvanzar(this.getVelocidad()));
+				if(actualizarImagen != girando)
+					this.actualizarImagen();
 				}
 			else {
 				girando = this.getX()>100;
 				this.setX(this.getX()-this.calculoAvanzar(this.getVelocidad()));
+				if(actualizarImagen != girando)
+					this.actualizarImagen();
 			}
-			if(actualizarImagen != girando)
-				this.actualizarImagen();
+			
 		}
 	}
 	

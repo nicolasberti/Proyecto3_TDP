@@ -31,12 +31,14 @@ public class Particula extends Entidad {
 	
 	public boolean moverse() {
 		boolean borrar = false;
+		int segundos = 3; // Duración de las particulas
+		int hiloTiempo = 5; // El hilo itera cada 200milisegundos. Entonces, 1 segundo serían 5 * 200.
 		if(!congelado) {
 			tiempoEnVida++;
 			this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
 			if(this.getY() >= Juego.get().getMapa().getLinea())
 				borrar = true;
-			if( tiempoEnVida >= 10)
+			if( tiempoEnVida >= segundos*hiloTiempo)
 				borrar = true;
 		}
 		return borrar;

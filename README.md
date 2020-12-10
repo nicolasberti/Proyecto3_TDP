@@ -7,7 +7,7 @@ Las oleadas contienen la mitad de infectados que contiene el nivel.
 
 El primer nivel comienza con 4 infectados, cada vez que se avanza de nivel, se aumentan 4 infectados más.
 
-Para moverse, utilizá las flechas <izquierda> y <derecha>. Para disparar, utilizá el espacio.
+Para moverse, utilizá las flechas (izquierda y derecha). Para disparar, utilizá el espacio.
 
 Cuidado con los infectados, cada cierto tiempo pueden o no, liberar particulas que te pueden infectar. También, ellos te pueden infectar por contacto directo (¡E infectan demasiado!). 
 

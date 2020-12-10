@@ -31,6 +31,18 @@ public class SuperArma extends EfectoTemporal {
 			usado = true;
 		}
 	}
+
+	@Override
+	public void accept(Visitor visit) {
+		// TODO Auto-generated method stub
+ 
+	}
+
+	@Override
+	public void disparar() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import entidades.Posicion;
 import logica.AutoAlgoritmo;
 import logica.Juego;
+import logica.Visitor;
 import logica.algoritmos.Descongelar;
 @SuppressWarnings("serial")
 public class CuarentenaObligatoria extends EfectoTemporal {
@@ -29,6 +30,18 @@ public class CuarentenaObligatoria extends EfectoTemporal {
 			habilitar.start();
 			usado = true;
 		}
+	}
+
+	@Override
+	public void accept(Visitor visit) {
+		// TODO Auto-generated method stub
+ 
+	}
+
+	@Override
+	public void disparar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

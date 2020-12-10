@@ -46,10 +46,10 @@ public class Juego {
 		hilo.empezar();
 		for(Infectado infectado : miMapa.getNivelActual().getInfectados()) {
 			if(infectado.getJugando())
-				hilo.getInfectados().add(infectado);
+				hilo.getEntidades().add(infectado);
 		}
 		jugando = true;
-		
+		hilo.getEntidades().add(jugador);
 		this.congelarTodos();
 		AutoAlgoritmo habilitar = new AutoAlgoritmo(new DescongelarTodos(), 4, this); 
 		habilitar.start();
@@ -58,15 +58,8 @@ public class Juego {
 	public void congelarTodos() {
 		List<Entidad> entidades = new ArrayList<Entidad>();
 		entidades.add(jugador);
-		// Agrega todos los infectados, premios, particulas y/o proyectiles para congelar.
-		for(Infectado infectado : hilo.getInfectados())
-			entidades.add(infectado);
-		for(Premio premio : hilo.getPremio())
-			entidades.add(premio);
-		for(Particula particula : hilo.getParticulas())
-			entidades.add(particula);
-		for(Proyectil proyectil : hilo.getProyectiles())
-			entidades.add(proyectil);
+		for(Entidad entidad : hilo.getEntidades())
+			entidades.add(entidad);
 		for(Entidad entidad : entidades)
 			entidad.congelar();
 	}
@@ -74,27 +67,44 @@ public class Juego {
 	public void descongelarTodos() {
 		List<Entidad> entidades = new ArrayList<Entidad>();
 		entidades.add(jugador);
-		// Agrega todos los infectados, premios, particulas y/o proyectiles para descongelar.
-		for(Infectado infectado : hilo.getInfectados())
-			entidades.add(infectado);
-		for(Premio premio : hilo.getPremio())
-			entidades.add(premio);
-		for(Particula particula : hilo.getParticulas())
-			entidades.add(particula);
-		for(Proyectil proyectil : hilo.getProyectiles())
-			entidades.add(proyectil);
+		for(Entidad entidad : hilo.getEntidades())
+			entidades.add(entidad);
 		for(Entidad entidad : entidades)
 			entidad.descongelar();
 	}
 	
 	public void congelarInfectados() {
-		for(Infectado infectado : hilo.getInfectados())
-			infectado.congelar();
+		for(Entidad entidad : hilo.getEntidades())
+			if( esInfectado(entidad))
+				entidad.congelar();
 	}
 	
 	public void descongelarInfectados() {
-		for(Infectado infectado : hilo.getInfectados())
-			infectado.descongelar();
+		for(Entidad entidad : hilo.getEntidades())
+			if( esInfectado(entidad))
+				entidad.descongelar();
+	}
+	
+	public List<Infectado> getInfectadosActuales(){
+		List<Infectado> c = new ArrayList<Infectado>();
+		for(Entidad entidad : hilo.getEntidades())
+			if( esInfectado(entidad))
+				c.add(((Infectado)entidad));
+		return c;
+	}
+	
+	private boolean esInfectado(Entidad entidad) {
+		if( superClase(entidad.getClass()).endsWith("Infectado") )
+			return true;
+		else 
+			return false;
+	}
+	
+	private String superClase(Class clase) {
+		if( clase.getSuperclass().toString().endsWith("Entidad"))
+			return clase.toString();
+		else
+			return superClase(clase.getSuperclass());
 	}
 	
 	public boolean getJugando() { return jugando; }
@@ -107,7 +117,7 @@ public class Juego {
 		miMapa.getNivelActual().segundaTanda();
 		for(Infectado infectado : miMapa.getNivelActual().getInfectados()) {
 			if(infectado.getJugando())
-				hilo.getInfectados().add(infectado);
+				hilo.getEntidades().add(infectado);
 		}
 		this.congelarTodos();
 		AutoAlgoritmo habilitar = new AutoAlgoritmo(new DescongelarTodos(), 4, this); 
@@ -128,7 +138,7 @@ public class Juego {
 			miMapa.empezar(nivelActual-1);
 			for(Infectado infectado : miMapa.getNivelActual().getInfectados()) {
 				if(infectado.getJugando())
-					hilo.getInfectados().add(infectado);
+					hilo.getEntidades().add(infectado);
 			}
 		}
 		this.congelarTodos();

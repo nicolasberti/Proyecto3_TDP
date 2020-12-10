@@ -23,6 +23,7 @@ public abstract class Infectado extends Entidad {
 	protected int [] posInicial; // Posiciones iniciales del infectado
 	protected boolean girando; // Representa si el infectado está girando
 	protected int nivel; // Indica de que nivel es el infectado.
+	protected int contador; // Cuenta para ver cuando tirar una particula.
 	
 	public void setJugando(boolean jugando) {
 		this.jugando = jugando;
@@ -38,7 +39,7 @@ public abstract class Infectado extends Entidad {
 	}
 	
 	// Los infectados se mueven de arriba hacia abajo.
-	public void moverse() {
+	public boolean moverse() {
 		boolean actualizarImagen = girando;
 		if(!congelado) {
 			this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
@@ -54,8 +55,20 @@ public abstract class Infectado extends Entidad {
 				if(actualizarImagen != girando)
 					this.actualizarImagen();
 			}
-			
+			if(this.getY() >= Juego.get().getMapa().getLinea())
+				this.volverPos();
+			contador += 200;
+			if(contador >= 2000) {
+				this.disparar();
+				contador = 0;
+			}
 		}
+		return false;
+	}
+	
+	public void disparar() {
+		Particula particulaNueva = new Particula(this.getDanio()/2, this.getX(), this.getY(), 4);
+		Juego.get().getHilo().add(particulaNueva);
 	}
 	
 	public int getDanio() { return danio; }
@@ -78,8 +91,8 @@ public abstract class Infectado extends Entidad {
 	}
 	
 	
-	public boolean accept(Visitor visitor) {
-		return visitor.visit(this);
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 	
 	public int[] generarCordenadas() {

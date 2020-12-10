@@ -4,6 +4,8 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import GUI.GUI_juego;
+import logica.Juego;
+import logica.Visitor;
 
 @SuppressWarnings("serial")
 public class Particula extends Entidad {
@@ -24,18 +26,31 @@ public class Particula extends Entidad {
 		this.setIcon(icon);
 	}
 	
-	// Las particulas se mueven de arriba hacia abajo.
-	public void moverse() {
-		if(!congelado)
-			this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
-	}
-	
 	public int getDanio() { return danio; }
 	
-	public void sumarTiempo() {
-		tiempoEnVida++;
+	
+	public boolean moverse() {
+		boolean borrar = false;
+		if(!congelado) {
+			tiempoEnVida++;
+			this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
+			if(this.getY() >= Juego.get().getMapa().getLinea())
+				borrar = true;
+			if( tiempoEnVida >= 10)
+				borrar = true;
+		}
+		return borrar;
 	}
 	
-	public int getTiempo() { return tiempoEnVida; }
+	@Override
+	public void accept(Visitor visit) {
+		
+	}
+
+	@Override
+	public void disparar() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

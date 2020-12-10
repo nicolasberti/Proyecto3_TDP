@@ -180,7 +180,7 @@ public class GUI_juego extends JFrame {
 		fondo = new ImageIcon(GUI_juego.class.getResource("/img/niveles/nivel_"+miJuego.getNivelActual()+".png")).getImage();
 		jugador = miJuego.getJugador();
 		agregarJugador();
-		agregarInfectados(miJuego.getHilo().getInfectados());
+		agregarInfectados(miJuego.getInfectadosActuales());
 		this.addKeyListener(new HiloTeclado(this)); // Movimientos del jugador.
 		// Panel score
 		this.cartel();
@@ -242,7 +242,7 @@ public class GUI_juego extends JFrame {
 	public void pasarNivel() {
 		miJuego.pasarNivel();
 		fondo = new ImageIcon(GUI_juego.class.getResource("/img/niveles/nivel_"+miJuego.getNivelActual()+".png")).getImage();
-		agregarInfectados(miJuego.getHilo().getInfectados());
+		agregarInfectados(miJuego.getInfectadosActuales());
 		cartel();
 		this.notificacion("¡Has pasado un nivel!");
 		repintar();
@@ -271,11 +271,6 @@ public class GUI_juego extends JFrame {
 	
 	public void removerPanel(JLabel entidad) {
 		panelJuego.remove(entidad);
-	}
-	
-	public void disparo(Proyectil disparo) {
-		panelJuego.add(disparo);
-		repintar();
 	}
 	
 	public void autoRemover(JLabel entidad, int segundos) {

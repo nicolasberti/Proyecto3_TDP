@@ -40,15 +40,15 @@ public class Jugador extends Entidad {
 		this.setIcon(icon);
 	}
 	
-	public Proyectil disparar() {
+	public void disparar() {
 		Proyectil disparo = null;
 		if(puedeDisparar && !congelado) {
 			puedeDisparar = false;
 			disparo = new Proyectil(this.getX(), this.getY(), this.getArma().getVelocidad(), this.getArma().getCargaDesinfeccion());
 			AutoAlgoritmo habilitar = new AutoAlgoritmo(new Disparo(), 1, this); // 1 segundo para habiltiar otro disparo.
 			habilitar.start();
+			Juego.get().getHilo().add(disparo);
 		}
-		return disparo;
 	}
 	
 	public void setCargaViral(int cargaViral) {
@@ -71,7 +71,7 @@ public class Jugador extends Entidad {
 	}
 	
 	// El movimiento del jugador se hace de derecha o de izquierda.
-	public void moverse() { } 
+	public boolean moverse() { return false; } 
 	
 	public void moverDerecha() {
 		if(!congelado)
@@ -87,8 +87,8 @@ public class Jugador extends Entidad {
 		p.utilizar();
 	}
 	
-	public boolean accept(Visitor visit) {
-		return visit.visit(this);
+	public void accept(Visitor visit) {
+		visit.visit(this);
 	}
 	
 }

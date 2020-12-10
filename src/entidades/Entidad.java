@@ -1,6 +1,9 @@
 package entidades;
 
 import javax.swing.JLabel;
+
+import logica.Juego;
+import logica.Visitor;
 @SuppressWarnings("serial")
 public abstract class Entidad extends JLabel {
 
@@ -20,7 +23,15 @@ public abstract class Entidad extends JLabel {
 		this.setBounds(x, posicion.getY(), this.getWidth(), this.getHeight());
 	}
 	
-	public abstract void moverse();
+	// Las entidades en principio se mueven de arriba hacía abajo.
+	public boolean moverse() {
+		if(!congelado) {
+			this.setY( ( this.getY()+ this.calculoAvanzar(this.getVelocidad()) ) );
+			if(this.getY() >= Juego.get().getMapa().getLinea())
+				return true;
+		}
+		return false;
+	}
 	
 	public boolean getCongelado() { return congelado; }
 	
@@ -42,5 +53,9 @@ public abstract class Entidad extends JLabel {
 	public int calculoAvanzar(int velocidad) {
 		return velocidad*5;
 	}
+	
+	public abstract void accept(Visitor visit);
+	
+	public abstract void disparar();
 	
 }

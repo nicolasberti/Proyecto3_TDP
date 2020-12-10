@@ -3,6 +3,7 @@ package logica.visitors;
 import entidades.Infectado;
 import entidades.Jugador;
 import entidades.Particula;
+import logica.Juego;
 import logica.Visitor;
 
 public class VisitorParticula extends Visitor {
@@ -14,19 +15,20 @@ public class VisitorParticula extends Visitor {
 	}
 	
 	@Override
-	public boolean visit(Infectado infectado) {
+	public void visit(Infectado infectado) {
 		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
-	public boolean visit(Jugador jugador) {
+	public void visit(Jugador jugador) {
 		boolean esta = false;
 		jugador.setCargaViral( jugador.getCargaViral() + particula.getDanio());
 		if(jugador.getCargaViral() >= 100) {
 			esta = true;
 		}
-		return esta;
+		if(esta)
+			Juego.get().getHilo().perder();
+		Juego.get().getHilo().remover(particula);
 	}
 
 }

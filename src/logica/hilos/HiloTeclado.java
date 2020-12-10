@@ -43,11 +43,7 @@ public class HiloTeclado extends Thread implements KeyListener {
 					break;
 				}
 				case KeyEvent.VK_SPACE:{
-					Proyectil disparo = jugador.disparar();
-					if(disparo != null) {
-						GUI.disparo(disparo);
-						juego.getHilo().getProyectiles().add(disparo);
-					}
+					jugador.disparar();
 					break;
 				}
 			}

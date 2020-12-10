@@ -204,7 +204,7 @@ public class GUI_juego extends JFrame {
 	public void perder() {
 		JLabel cartel = new JLabel();
 		cartel.setBounds(x/2-140, y/2-150, 300, 400);
-		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/gameover.gif"));
+		ImageIcon img = new ImageIcon(GUI_juego.class.getResource("/img/fin.png"));
 		Icon icon = new ImageIcon(img.getImage().getScaledInstance(cartel.getWidth(), cartel.getHeight(), Image.SCALE_DEFAULT));
 		cartel.setIcon(icon);
 		panelJuego.add(cartel);
